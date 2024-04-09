@@ -20,9 +20,11 @@ import { transactionSchema } from "@/zod/transaction";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PlusIcon } from "@radix-ui/react-icons";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
+import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 const schema = transactionSchema.create;
 const TransactionType = [
@@ -35,12 +37,23 @@ async function fetcher() {
     const data = await axios.get("/api/categories");
     return data.data as Category[];
 }
+type ResponseCode =
+    | "UNAUTHORIZED"
+    | "INVALID_SCHEMA"
+    | "SUCCESS"
+    | "INTERNAL_SERVER_ERROR";
+interface ResponseData {
+    message: string;
+    code: ResponseCode;
+}
 export function AddTransactionButton() {
+    const router = useRouter();
     const queryClient = useQueryClient();
     const { data: categories, isPending: isPendingCategories } = useQuery({
         queryKey: ["categories"],
         queryFn: fetcher,
     });
+    const [isSubmit, setSubmit] = useState(false);
     const [open, setOpen] = useState(false);
     const onOpenChange = () => setOpen(!open);
     const form = useForm<z.infer<typeof schema>>({
@@ -52,7 +65,29 @@ export function AddTransactionButton() {
         },
     });
     const onSubmit = async (value: z.infer<typeof schema>) => {
-        console.log(value);
+        try {
+            setSubmit(true);
+            // console.log(value);
+            const r: AxiosResponse<ResponseData> = await axios.post(
+                "/api/transactions/create",
+                JSON.stringify(value)
+            );
+            if (r.status === 200) {
+                queryClient.invalidateQueries({ queryKey: ["transactions"] });
+                form.reset();
+                setSubmit(false);
+            }
+        } catch (error) {
+            if (error instanceof AxiosError) {
+                // const r = error.response?.data as ResponseData;
+                toast.error("Something Wrong", {
+                    description: "Page will reload again!",
+                });
+                form.reset();
+                setSubmit(false);
+                router.refresh();
+            }
+        }
     };
     const mapCategoriesData = categories
         ? categories.map((x) => ({
@@ -141,7 +176,11 @@ export function AddTransactionButton() {
                                     />
                                 </div>
                                 <DrawerFooter>
-                                    <Button type="submit" className="space-x-1">
+                                    <Button
+                                        type="submit"
+                                        className="space-x-1"
+                                        disabled={isSubmit}
+                                    >
                                         Save
                                     </Button>
                                     <DrawerClose asChild>

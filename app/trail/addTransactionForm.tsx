@@ -20,8 +20,10 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useEffect, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import { Cross2Icon, DiscIcon } from "@radix-ui/react-icons";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 const schema = transactionSchema.create;
 const TransactionType = [
     { label: "Income", value: "income" },
@@ -33,7 +35,17 @@ async function fetcher() {
     const data = await axios.get("/api/categories");
     return data.data as Category[];
 }
+type ResponseCode =
+    | "UNAUTHORIZED"
+    | "INVALID_SCHEMA"
+    | "SUCCESS"
+    | "INTERNAL_SERVER_ERROR";
+interface ResponseData {
+    message: string;
+    code: ResponseCode;
+}
 export function AddTransactionForm() {
+    const router = useRouter();
     const queryClient = useQueryClient();
     const { data: categories, isPending: isPendingCategories } = useQuery({
         queryKey: ["categories"],
@@ -50,8 +62,28 @@ export function AddTransactionForm() {
     });
     const onSubmit = async (value: z.infer<typeof schema>) => {
         try {
-            console.log(value);
-        } catch (error) {}
+            setSubmit(true);
+            // console.log(value);
+            const r: AxiosResponse<ResponseData> = await axios.post(
+                "/api/transactions/create",
+                JSON.stringify(value)
+            );
+            if (r.status === 200) {
+                queryClient.invalidateQueries({ queryKey: ["transactions"] });
+                form.reset();
+                setSubmit(false);
+            }
+        } catch (error) {
+            if (error instanceof AxiosError) {
+                // const r = error.response?.data as ResponseData;
+                toast.error("Something Wrong", {
+                    description: "Page will reload again!",
+                });
+                form.reset();
+                setSubmit(false);
+                router.refresh();
+            }
+        }
     };
     const mapCategoriesData = categories
         ? categories.map((x) => ({
@@ -125,7 +157,7 @@ export function AddTransactionForm() {
                             />
                         </CardContent>
                         <CardFooter className="flex gap-1">
-                            <Button type="submit" className="w-full space-x-1">
+                            <Button type="submit" className="w-full space-x-1" disabled={isSubmit}>
                                 <span>Save</span>
                                 <DiscIcon />
                             </Button>
