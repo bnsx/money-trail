@@ -11,6 +11,7 @@ import { Filter } from "./filter";
 interface FetcherProps {
     pageIndex: number;
     pageSize: number;
+    sort: "newer" | "older";
 }
 
 interface ResponseData {
@@ -19,11 +20,11 @@ interface ResponseData {
     pageSize: number;
     pageCount: number;
 }
-async function fetcher({ pageIndex, pageSize }: FetcherProps) {
+async function fetcher({ pageIndex, pageSize, sort }: FetcherProps) {
     await new Promise((resolve) => setTimeout(resolve, 400));
 
     const r = await axios.get("/api/transactions", {
-        params: { pageIndex, pageSize },
+        params: { pageIndex, pageSize, sort },
     });
     return r.data as ResponseData;
 }
@@ -31,16 +32,16 @@ export function TransactionsDisplay() {
     const searchParams = useSearchParams();
     const pageIndex = parseInt(searchParams.get("pageIndex") || "1", 10);
     const pageSize = parseInt(searchParams.get("pageSize") || "10", 10);
-
+    const sort = (searchParams.get("sort") || "newer") as "newer" | "older";
     const { data, isFetching, refetch } = useQuery({
         queryKey: ["transactions"],
-        queryFn: () => fetcher({ pageIndex, pageSize }),
+        queryFn: () => fetcher({ pageIndex, pageSize, sort }),
     });
 
     useEffect(() => {
         refetch();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [pageIndex, pageSize]);
+    }, [pageIndex, pageSize, sort]);
 
     return (
         <div className="xl:w-2/4 space-y-3">
