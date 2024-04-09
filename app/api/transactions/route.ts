@@ -27,6 +27,9 @@ export async function GET(req: NextRequest) {
             req.nextUrl.searchParams.get("pageSize") || "10",
             10
         );
+        const sort = (req.nextUrl.searchParams.get("sort") || "newer") as
+            | "newer"
+            | "older";
         if (!pageSizeList.includes(pageSize)) {
             pageSize = 10;
         }
@@ -54,11 +57,37 @@ export async function GET(req: NextRequest) {
             amount: Number(x.amount),
             currencyCode: x.countries.currencyCode,
             category:
-                { id: x.categories?.categoryID, name: x.categories?.name } ||
-                null,
+                {
+                    id: x.categories?.categoryID,
+                    name: x.categories?.name,
+                } || null,
             categories: undefined,
             countries: undefined,
         }));
+
+        switch (sort) {
+            case "newer":
+                entries.sort(
+                    (a, b) =>
+                        new Date(b.createdAt).getTime() -
+                        new Date(a.createdAt).getTime()
+                );
+                break;
+            case "older":
+                entries.sort(
+                    (a, b) =>
+                        new Date(a.createdAt).getTime() -
+                        new Date(b.createdAt).getTime()
+                );
+                break;
+            default:
+                entries.sort(
+                    (a, b) =>
+                        new Date(b.createdAt).getTime() -
+                        new Date(a.createdAt).getTime()
+                );
+                break;
+        }
 
         return NextResponse.json(
             { data: entries, pageIndex, pageSize, pageCount },
