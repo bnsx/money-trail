@@ -45,9 +45,8 @@ class Transaction {
                     where: {
                         categoryID: data.categoryID,
                         memberID: data.memberID,
-                        updatedAt: new Date(),
                     },
-                    data: { count: { increment: 1 } },
+                    data: { count: { increment: 1 }, updatedAt: new Date() },
                 }),
                 prisma.transactions.create({ data }),
             ]);
@@ -73,22 +72,13 @@ class Transaction {
         });
     }
 
-    async hasTransaction({
-        txid,
-        memberID,
-        deletedAt,
-    }: hasTransactionProps) {
+    async hasTransaction({ txid, memberID, deletedAt }: hasTransactionProps) {
         return await prisma.transactions.findUnique({
             where: { txid, memberID, deletedAt },
         });
     }
 
-    async getAll({
-        memberID,
-        isoNumeric,
-        categoryID,
-        deletedAt,
-    }: getAllProps) {
+    async getAll({ memberID, isoNumeric, categoryID, deletedAt }: getAllProps) {
         return await prisma.transactions.findMany({
             where: { memberID, isoNumeric, categoryID, deletedAt },
         });
