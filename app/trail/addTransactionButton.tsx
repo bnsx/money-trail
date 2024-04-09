@@ -9,6 +9,7 @@ import {
     Drawer,
     DrawerClose,
     DrawerContent,
+    DrawerDescription,
     DrawerFooter,
     DrawerHeader,
     DrawerTitle,
@@ -17,9 +18,9 @@ import {
 import { Form } from "@/components/ui/form";
 import { transactionSchema } from "@/zod/transaction";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-    PlusIcon,
-} from "@radix-ui/react-icons";
+import { PlusIcon } from "@radix-ui/react-icons";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -28,7 +29,18 @@ const TransactionType = [
     { label: "Income", value: "income" },
     { label: "Expense", value: "expense" },
 ];
+async function fetcher() {
+    await new Promise((resolve) => setTimeout(resolve, 400));
+
+    const data = await axios.get("/api/categories");
+    return data.data as Category[];
+}
 export function AddTransactionButton() {
+    const queryClient = useQueryClient();
+    const { data: categories, isPending: isPendingCategories } = useQuery({
+        queryKey: ["categories"],
+        queryFn: fetcher,
+    });
     const [open, setOpen] = useState(false);
     const onOpenChange = () => setOpen(!open);
     const form = useForm<z.infer<typeof schema>>({
@@ -42,6 +54,12 @@ export function AddTransactionButton() {
     const onSubmit = async (value: z.infer<typeof schema>) => {
         console.log(value);
     };
+    const mapCategoriesData = categories
+        ? categories.map((x) => ({
+              label: x.name,
+              value: x.categoryID,
+          }))
+        : [];
     useEffect(() => {
         if (open === false) {
             form.reset();
@@ -52,13 +70,18 @@ export function AddTransactionButton() {
         <div className="">
             <Drawer open={open} onOpenChange={setOpen}>
                 <DrawerTrigger asChild>
-                    <Button type="button" className="xl:hidden fixed bottom-10 left-10" size={'icon'}>
+                    <Button
+                        type="button"
+                        className="xl:hidden fixed bottom-14 right-10"
+                        size={"icon"}
+                    >
                         <PlusIcon className="w-5 h-5" />
                     </Button>
                 </DrawerTrigger>
                 <DrawerContent>
                     <DrawerHeader className="text-left">
-                        <DrawerTitle>Fill Detail 💸</DrawerTitle>
+                        <DrawerTitle>Record Transaction</DrawerTitle>
+                        <DrawerDescription>...</DrawerDescription>
                     </DrawerHeader>
                     <div>
                         <Form {...form}>
@@ -89,6 +112,19 @@ export function AddTransactionButton() {
                                             data={TransactionType}
                                         />
                                     </div>
+                                    <FormSelect
+                                        control={form.control}
+                                        schema={schema}
+                                        name={"categoryID"}
+                                        label="Category (optional)"
+                                        placeholder={
+                                            isPendingCategories
+                                                ? "Loading..."
+                                                : "Pick Category"
+                                        }
+                                        data={mapCategoriesData}
+                                        disabled={isPendingCategories}
+                                    />
                                     <FormNumber
                                         control={form.control}
                                         schema={schema}
