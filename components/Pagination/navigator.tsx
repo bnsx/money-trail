@@ -1,4 +1,3 @@
-"use client"
 import React, { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
@@ -6,7 +5,6 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 import { RenderButtonToGoPage } from "./renderButtonGoToPage";
 import { PageSize } from "./pageSize";
-import { createQueryString } from "@/lib/qs";
 
 interface Props {
     isFetching: boolean;
@@ -24,14 +22,14 @@ export function Navigator({
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
-    // const createQueryString = useCallback(
-    //     (data: Array<{ name: string; value: string }>) => {
-    //         const params = new URLSearchParams(searchParams.toString());
-    //         data.forEach((item) => params.set(item.name, item.value));
-    //         return params.toString();
-    //     },
-    //     [searchParams]
-    // );
+    const createQueryString = useCallback(
+        (data: Array<{ name: string; value: string }>) => {
+            const params = new URLSearchParams(searchParams.toString());
+            data.forEach((item) => params.set(item.name, item.value));
+            return params.toString();
+        },
+        [searchParams]
+    );
     const disabledPrevButton = pageIndex === 1 || isFetching;
     const disabledNextButton = pageIndex >= pageCount || isFetching;
 
@@ -41,11 +39,9 @@ export function Navigator({
             router.push(
                 pathname +
                     "?" +
-                    createQueryString({
-                        data: [{ name: "pageIndex", value: value.toString() }],
-                        searchParams,
-                        deps: [searchParams],
-                    })
+                    createQueryString([
+                        { name: "pageIndex", value: value.toString() },
+                    ])
             );
         }
     };
@@ -55,11 +51,9 @@ export function Navigator({
         router.push(
             pathname +
                 "?" +
-                createQueryString({
-                    data: [{ name: "pageIndex", value: value.toString() }],
-                    searchParams,
-                    deps: [searchParams],
-                })
+                createQueryString([
+                    { name: "pageIndex", value: value.toString() },
+                ])
         );
     };
 
@@ -74,14 +68,10 @@ export function Navigator({
             router.push(
                 pathname +
                     "?" +
-                    createQueryString({
-                        data: [
-                            { name: "pageIndex", value: "1" },
-                            { name: "pageSize", value: "10" },
-                        ],
-                        searchParams,
-                        deps: [searchParams],
-                    })
+                    createQueryString([
+                        { name: "pageIndex", value: "1" },
+                        { name: "pageSize", value: "10" },
+                    ])
             );
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
