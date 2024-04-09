@@ -76,6 +76,7 @@ export function AddTransactionButton() {
                 queryClient.invalidateQueries({ queryKey: ["transactions"] });
                 form.reset();
                 setSubmit(false);
+                return router.refresh();
             }
         } catch (error) {
             if (error instanceof AxiosError) {

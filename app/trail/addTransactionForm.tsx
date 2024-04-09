@@ -72,6 +72,7 @@ export function AddTransactionForm() {
                 queryClient.invalidateQueries({ queryKey: ["transactions"] });
                 form.reset();
                 setSubmit(false);
+                return router.refresh();
             }
         } catch (error) {
             if (error instanceof AxiosError) {
@@ -156,7 +157,11 @@ export function AddTransactionForm() {
                             />
                         </CardContent>
                         <CardFooter className="flex gap-1">
-                            <Button type="submit" className="w-full space-x-1" disabled={isSubmit}>
+                            <Button
+                                type="submit"
+                                className="w-full space-x-1"
+                                disabled={isSubmit}
+                            >
                                 <span>Save</span>
                                 <DiscIcon />
                             </Button>
