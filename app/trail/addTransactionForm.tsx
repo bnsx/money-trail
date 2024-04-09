@@ -79,7 +79,6 @@ export function AddTransactionForm() {
                 toast.error("Something Wrong", {
                     description: "Page will reload again!",
                 });
-                form.reset();
                 setSubmit(false);
                 router.refresh();
             }
