@@ -1,0 +1,89 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model categories {
+  categoryID   String         @id @default(cuid()) @db.VarChar(100)
+  name         String         @db.VarChar(100)
+  description  String?        @db.VarChar(255)
+  memberID     String         @db.VarChar(100)
+  count        Int            @default(0) @db.UnsignedInt
+  createdAt    DateTime       @default(now()) @db.DateTime(0)
+  updatedAt    DateTime       @default(now()) @db.DateTime(0)
+  deletedAt    DateTime?
+  members      members        @relation(fields: [memberID], references: [memberID], onDelete: NoAction, onUpdate: NoAction, map: "categories_users_FK")
+  transactions transactions[]
+
+  @@index([memberID], map: "categories_users_FK")
+}
+
+model transactions {
+  txid        String          @id @default(cuid()) @db.VarChar(100)
+  amount      Decimal         @db.Decimal(10, 2)
+  title       String          @db.VarChar(25)
+  description String?         @db.VarChar(255)
+  type        TransactionType
+  date        DateTime
+  isoNumeric  Int             @db.UnsignedSmallInt
+  memberID    String          @db.VarChar(100)
+  categoryID  String?         @db.VarChar(100)
+  createdAt   DateTime        @default(now()) @db.DateTime(0)
+  updatedAt   DateTime        @default(now()) @db.DateTime(0)
+  deletedAt   DateTime?
+  categories  categories?     @relation(fields: [categoryID], references: [categoryID], onDelete: NoAction, onUpdate: NoAction, map: "transactions_categories_FK")
+  countries   countries       @relation(fields: [isoNumeric], references: [isoNumeric], onDelete: NoAction, onUpdate: NoAction, map: "transactions_countries_FK")
+  members     members         @relation(fields: [memberID], references: [memberID], onDelete: NoAction, onUpdate: NoAction, map: "transactions_users_FK")
+
+  @@index([categoryID], map: "transactions_categories_FK")
+  @@index([memberID], map: "transactions_users_FK")
+  @@index([isoNumeric], map: "transactions_countries_FK")
+}
+
+model members {
+  memberID     String         @id @default(cuid()) @db.VarChar(100)
+  username     String         @unique @db.VarChar(25)
+  email        String         @unique @db.VarChar(255)
+  role         MemberRole
+  status       Boolean        @default(true)
+  provider     String         @db.VarChar(10)
+  createdAt    DateTime       @default(now()) @db.DateTime(0)
+  updatedAt    DateTime       @default(now()) @db.DateTime(0)
+  deletedAt    DateTime?
+  isoNumeric   Int?           @db.UnsignedSmallInt
+  categories   categories[]
+  countries    countries?     @relation(fields: [isoNumeric], references: [isoNumeric], onDelete: NoAction, onUpdate: NoAction, map: "members_countries_FK")
+  transactions transactions[]
+
+  @@index([isoNumeric], map: "members_countries_FK")
+}
+
+model countries {
+  name            String         @db.VarChar(200)
+  currencyCode    String         @db.Char(3)
+  currencyName    String         @db.VarChar(32)
+  currrencySymbol String         @db.VarChar(20)
+  isoChar2        String         @db.VarChar(2)
+  isoChar3        String         @db.VarChar(3)
+  isoNumeric      Int            @id @db.UnsignedSmallInt
+  nameTH          String         @db.VarChar(100)
+  count           Int            @default(0) @db.UnsignedInt
+  members         members[]
+  transactions    transactions[]
+}
+
+enum TransactionType {
+  income
+  expense
+}
+
+enum MemberRole {
+  admin
+  staff
+
+  @@map("members_role")
+}

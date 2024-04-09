@@ -1,0 +1,194 @@
+name,nameTH,isoChar2,isoChar3,isoNumeric,currencyCode,currencyName,currrencySymbol
+Afghanistan,อัฟกานิสถาน,AF,AFG,4,AFN,Afghani,؋
+Albania,แอลเบเนีย,AL,ALB,8,ALL,Lek,Lek
+Algeria,แอลจีเรีย,DZ,DZA,12,DZD,Dinar,دج
+Andorra,แอนโดรรา,AD,AND,20,EUR,Euro,€
+Angola,แองโกลา,AO,AGO,24,AOA,Kwanza,Kz
+Antigua and Barbuda,แอนติกาและบาร์บูดา,AG,ATG,28,XCD,Dollar,$
+Argentina,อาร์เจนตินา,AR,ARG,32,ARS,Peso,$
+Armenia,อาร์เมเนีย,AM,ARM,51,AMD,Dram,֏
+Australia,ออสเตรเลีย,AU,AUS,36,AUD,Dollar,$
+Austria,ออสเตรีย,AT,AUT,40,EUR,Euro,€
+Azerbaijan,อาเซอร์ไบจาน,AZ,AZE,31,AZN,Manat,ман
+Bahamas,บาฮามาส,BS,BHS,44,BSD,Dollar,$
+Bahrain,บาห์เรน,BH,BHR,48,BHD,Dinar,.د.ب
+Bangladesh,บังกลาเทศ,BD,BGD,50,BDT,Taka,৳
+Barbados,บาร์เบโดส,BB,BRB,52,BBD,Dollar,$
+Belarus,เบลารุส,BY,BLR,112,BYR,Ruble,p.
+Belgium,เบลเยียม,BE,BEL,56,EUR,Euro,€
+Belize,เบลีซ,BZ,BLZ,84,BZD,Dollar,BZ$
+Benin,เบนิน,BJ,BEN,204,XOF,Franc,CFA
+Bhutan,ภูฏาน,BT,BTN,64,BTN,Ngultrum,Nu.
+Bolivia,โบลิเวีย,BO,BOL,68,BOB,Boliviano,$b
+Bosnia and Herzegovina,บอสเนียและเฮอร์เซโกวีนา,BA,BIH,70,BAM,Marka,KM
+Botswana,บอตสวานา,BW,BWA,72,BWP,Pula,P
+Brazil,บราซิล,BR,BRA,76,BRL,Real,R$
+Brunei,บรูไน,BN,BRN,96,BND,Dollar,$
+Bulgaria,บัลแกเรีย,BG,BGR,100,BGN,Lev,лв
+Burkina Faso,บูร์กินาฟาโซ,BF,BFA,854,XOF,Franc,CFA
+Burundi,บุรุนดี,BI,BDI,108,BIF,Franc,FBu
+Cambodia,กัมพูชา,KH,KHM,116,KHR,Riels,៛
+Cameroon,แคเมอรูน,CM,CMR,120,XAF,Franc,FCF
+Canada,แคนาดา,CA,CAN,124,CAD,Dollar,$
+Cape Verde,เคปเวิร์ด,CV,CPV,132,CVE,Escudo,Esc
+Central African Republic,สาธารณรัฐแอฟริกากลาง,CF,CAF,140,XAF,Franc,FCF
+Chad,ชาด,TD,TCD,148,XAF,Franc,FCFA
+Chile,ชิลี,CL,CHL,152,CLP,Peso,$
+China,จีน,CN,CHN,156,CNY,Yuan Renminbi,¥
+Colombia,โคลอมเบีย,CO,COL,170,COP,Peso,$
+Comoros,คอโมโรส,KM,COM,174,KMF,Franc,CF
+Costa Rica,คอสตาริกา,CR,CRI,188,CRC,Colon,₡
+Croatia,โครเอเชีย,HR,HRV,191,HRK,Kuna,kn
+Cuba,คิวบา,CU,CUB,192,CUP,Peso,₱
+Cyprus,ไซปรัส,CY,CYP,196,CYP,Pound,£
+Czech Republic,สาธารณรัฐเช็ก,CZ,CZE,203,CZK,Koruna,Kč
+Democratic Republic of the Congo,สาธารณรัฐประชาธิปไตยคองโก,CD,COD,180,CDF,Franc,FC
+Denmark,เดนมาร์ก,DK,DNK,208,DKK,Krone,kr
+Djibouti,จิบูตี,DJ,DJI,262,DJF,Franc,Fdj
+Dominica,โดมินิกา,DM,DMA,212,XCD,Dollar,$
+Dominican Republic,สาธารณรัฐโดมินิกัน,DO,DOM,214,DOP,Peso,RD$
+Ecuador,เอกวาดอร์,EC,ECU,218,USD,Dollar,$
+Egypt,อียิปต์,EG,EGY,818,EGP,Pound,£
+El Salvador,เอลซัลวาดอร์,SV,SLV,222,SVC,Colone,$
+Equatorial Guinea,อิเควทอเรียลกินี,GQ,GNQ,226,XAF,Franc,FCF
+Eritrea,เอริเทรีย,ER,ERI,232,ERN,Nakfa,Nfk
+Estonia,เอสโตเนีย,EE,EST,233,EEK,Kroon,kr
+Ethiopia,เอธิโอเปีย,ET,ETH,231,ETB,Birr,Br
+Fiji,ฟิจิ,FJ,FJI,242,FJD,Dollar,$
+Finland,ฟินแลนด์,FI,FIN,246,EUR,Euro,€
+France,ฝรั่งเศส,FR,FRA,250,EUR,Euro,€
+Gabon,กาบอง,GA,GAB,266,XAF,Franc,FCF
+Gambia,แกมเบีย,GM,GMB,270,GMD,Dalasi,D
+Georgia,จอร์เจีย,GE,GEO,268,GEL,Lari,₾
+Germany,เยอรมนี,DE,DEU,276,EUR,Euro,€
+Ghana,กานา,GH,GHA,288,GHC,Cedi,¢
+Greece,กรีซ,GR,GRC,300,EUR,Euro,€
+Greenland,กรีนแลนด์,GL,GRL,304,DKK,Krone,kr
+Grenada,เกรนาดา,GD,GRD,308,XCD,Dollar,$
+Guatemala,กัวเตมาลา,GT,GTM,320,GTQ,Quetzal,Q
+Guinea,กินี,GN,GIN,324,GNF,Franc,FG
+Guinea-Bissau,กินี-บิสเซา,GW,GNB,624,XOF,Franc,CFA
+Guyana,กายอานา,GY,GUY,328,GYD,Dollar,$
+Haiti,เฮติ,HT,HTI,332,HTG,Gourde,G
+Honduras,ฮอนดูรัส,HN,HND,340,HNL,Lempira,L
+Hong Kong,ฮ่องกง,HK,HKG,344,HKD,Dollar,$
+Hungary,ฮังการี,HU,HUN,348,HUF,Forint,Ft
+Iceland,ไอซ์แลนด์,IS,ISL,352,ISK,Krona,kr
+India,อินเดีย,IN,IND,356,INR,Rupee,₹
+Indonesia,อินโดนีเซีย,ID,IDN,360,IDR,Rupiah,Rp
+Iran,อิหร่าน,IR,IRN,364,IRR,Rial,﷼
+Iraq,อิรัก,IQ,IRQ,368,IQD,Dinar,د.ع
+Ireland,ไอร์แลนด์,IE,IRL,372,EUR,Euro,€
+Israel,อิสราเอล,IL,ISR,376,ILS,Shekel,₪
+Italy,อิตาลี,IT,ITA,380,EUR,Euro,€
+Ivory Coast,โกตดิวัวร์,CI,CIV,384,XOF,Franc,CFA
+Jamaica,จาเมกา,JM,JAM,388,JMD,Dollar,$
+Japan,ญี่ปุ่น,JP,JPN,392,JPY,Yen,¥
+Jordan,จอร์แดน,JO,JOR,400,JOD,Dinar,JD
+Kazakhstan,คาซัคสถาน,KZ,KAZ,398,KZT,Tenge,лв
+Kenya,เคนยา,KE,KEN,404,KES,Shilling,KSh
+Kiribati,คิริบาส,KI,KIR,296,AUD,Dollar,$
+Kuwait,คูเวต,KW,KWT,414,KWD,Dinar,د.ك
+Kyrgyzstan,คีร์กีซสถาน,KG,KGZ,417,KGS,Som,лв
+Laos,ลาว,LA,LAO,418,LAK,Kip,₭
+Latvia,ลัตเวีย,LV,LVA,428,LVL,Lat,Ls
+Lebanon,เลบานอน,LB,LBN,422,LBP,Pound,£
+Lesotho,เลโซโท,LS,LSO,426,LSL,Loti,L
+Liberia,ไลบีเรีย,LR,LBR,430,LRD,Dollar,$
+Libya,ลิเบีย,LY,LBY,434,LYD,Dinar,LD
+Liechtenstein,ลิกเตนสไตน์,LI,LIE,438,CHF,Franc,CHF
+Lithuania,ลิทัวเนีย,LT,LTU,440,LTL,Litas,Lt
+Luxembourg,ลักเซมเบิร์ก,LU,LUX,442,EUR,Euro,€
+Macedonia,มาซิโดเนีย,MK,MKD,807,MKD,Denar,ден
+Madagascar,มาดากัสการ์,MG,MDG,450,MGA,Ariary,Ar
+Malawi,มาลาวี,MW,MWI,454,MWK,Kwacha,MK
+Malaysia,มาเลเซีย,MY,MYS,458,MYR,Ringgit,RM
+Maldives,มัลดีฟส์,MV,MDV,462,MVR,Rufiyaa,Rf
+Mali,มาลี,ML,MLI,466,XOF,Franc,CFA
+Malta,มอลตา,MT,MLT,470,EUR,Euro,€
+Mauritania,มอริเตเนีย,MR,MRT,478,MRO,Ouguiya,UM
+Mauritius,มอริเชียส,MU,MUS,480,MUR,Rupee,₨
+Mexico,เม็กซิโก,MX,MEX,484,MXN,Peso,$
+Micronesia,ไมโครนีเซีย,FM,FSM,583,USD,Dollar,$
+Moldova,มอลโดวา,MD,MDA,498,MDL,Leu,L
+Monaco,โมนาโก,MC,MCO,492,EUR,Euro,€
+Mongolia,มองโกเลีย,MN,MNG,496,MNT,Tugrik,₮
+Morocco,โมร็อกโก,MA,MAR,504,MAD,Dirham,DH
+Mozambique,โมซัมบิก,MZ,MOZ,508,MZN,Metical,MT
+Myanmar,พม่า,MM,MMR,104,MMK,Kyat,K
+Namibia,นามิเบีย,NA,NAM,516,NAD,Dollar,$
+Nauru,นาอูรู,NR,NRU,520,AUD,Dollar,$
+Nepal,เนปาล,NP,NPL,524,NPR,Rupee,₨
+Netherlands,เนเธอร์แลนด์,NL,NLD,528,EUR,Euro,€
+New Zealand,นิวซีแลนด์,NZ,NZL,554,NZD,Dollar,$
+Nicaragua,นิการากัว,NI,NIC,558,NIO,Cordoba,C$
+Niger,ไนเจอร์,NE,NER,562,XOF,Franc,CFA
+Nigeria,ไนจีเรีย,NG,NGA,566,NGN,Naira,₦
+North Korea,เกาหลีเหนือ,KP,PRK,408,KPW,Won,₩
+Norway,นอร์เวย์,NO,NOR,578,NOK,Krone,kr
+Oman,โอมาน,OM,OMN,512,OMR,Rial,ر.ع.
+Pakistan,ปากีสถาน,PK,PAK,586,PKR,Rupee,₨
+Palau,ปาเลา,PW,PLW,585,USD,Dollar,$
+Panama,ปานามา,PA,PAN,591,PAB,Balboa,B/.
+Papua New Guinea,ปาปัวนิวกินี,PG,PNG,598,PGK,Kina,K
+Paraguay,ปารากวัย,PY,PRY,600,PYG,Guarani,₲
+Peru,เปรู,PE,PER,604,PEN,Nuevo Sol,S/.
+Philippines,ฟิลิปปินส์,PH,PHL,608,PHP,Peso,₱
+Poland,โปแลนด์,PL,POL,616,PLN,Zloty,zł
+Portugal,โปรตุเกส,PT,PRT,620,EUR,Euro,€
+Qatar,กาตาร์,QA,QAT,634,QAR,Rial,ر.ق.
+Republic of the Congo,สาธารณรัฐคองโก,CG,COG,178,XAF,Franc,FCFA
+Romania,โรมาเนีย,RO,ROU,642,RON,Leu,L
+Russia,รัสเซีย,RU,RUS,643,RUB,Ruble,₽
+Rwanda,รวันดา,RW,RWA,646,RWF,Franc,R₣
+Saint Kitts and Nevis,เซนต์คิตส์และเนวิส,KN,KNA,659,XCD,Dollar,$
+Saint Lucia,เซนต์ลูเซีย,LC,LCA,662,XCD,Dollar,$
+Saint Vincent and the Grenadines,เซนต์วินเซนต์และเกรนาดีนส์,VC,VCT,670,XCD,Dollar,$
+Samoa,ซามัว,WS,WSM,882,WST,Tala,T
+San Marino,ซานมารีโน,SM,SMR,674,EUR,Euro,€
+Sao Tome and Principe,เซาตูเมและปรินซิปี,ST,STP,678,STD,Dobra,Db
+Saudi Arabia,ซาอุดีอาระเบีย,SA,SAU,682,SAR,Riyal,ر.س.
+Senegal,เซเนกัล,SN,SEN,686,XOF,Franc,CFA
+Seychelles,เซเชลส์,SC,SYC,690,SCR,Rupee,₨
+Sierra Leone,เซียร์ราลีโอน,SL,SLE,694,SLL,Leone,Le
+Singapore,สิงคโปร์,SG,SGP,702,SGD,Dollar,$
+Slovakia,สโลวัก,SK,SVK,703,EUR,Euro,€
+Slovenia,สโลวีเนีย,SI,SVN,705,EUR,Euro,€
+Somalia,โซมาเลีย,SO,SOM,706,SOS,Shilling,S
+South Africa,แอฟริกาใต้,ZA,ZAF,710,ZAR,Rand,R
+South Korea,เกาหลีใต้,KR,KOR,410,KRW,Won,₩
+Spain,สเปน,ES,ESP,724,EUR,Euro,€
+Sri Lanka,ศรีลังกา,LK,LKA,144,LKR,Rupee,₨
+Sudan,ซูดาน,SD,SDN,729,SDG,Pound,£
+Suriname,ซูรินาเม,SR,SUR,740,SRD,Dollar,$
+Swaziland,สวาซิแลนด์,SZ,SWZ,748,SZL,Lilangeni,L
+Sweden,สวีเดน,SE,SWE,752,SEK,Krona,kr
+Switzerland,สวิตเซอร์แลนด์,CH,CHE,756,CHF,Franc,CHF
+Syria,ซีเรีย,SY,SYR,760,SYP,Pound,£
+Taiwan,ไต้หวัน,TW,TWN,158,TWD,Dollar,NT$
+Tajikistan,ทาจิกิสถาน,TJ,TJK,762,TJS,Somoni,ЅМ
+Tanzania,แทนซาเนีย,TZ,TZA,834,TZS,Shilling,TSh
+Thailand,ไทย,TH,THA,764,THB,Baht,฿
+Timor Leste,ติมอร์ เลสเต,TL,TLS,626,USD,Dollar,$
+Togo,โตโก,TG,TGO,768,XOF,Franc,CFA
+Tonga,ตองกา,TO,TON,776,TOP,Pa'anga,T$
+Trinidad and Tobago,ตรินิแดดและโตเบโก,TT,TTO,780,TTD,Dollar,$
+Tunisia,ตูนิเซีย,TN,TUN,788,TND,Dinar,د.ت
+Turkey,ตุรกี,TR,TUR,792,TRY,Lira,₺
+Turkmenistan,เติร์กเมนิสถาน,TM,TKM,795,TMT,Manat,m
+Tuvalu,ตูวาลู,TV,TUV,798,AUD,Dollar,$
+Uganda,ยูกันดา,UG,UGA,800,UGX,Shilling,USh
+Ukraine,ยูเครน,UA,UKR,804,UAH,Hryvnia,₴
+United Arab Emirates,สหรัฐอาหรับเอมิเรตส์,AE,ARE,784,AED,Dirham,د.إ
+United Kingdom,สหราชอาณาจักร,GB,GBR,826,GBP,Pound,£
+United States,สหรัฐอเมริกา,US,USA,840,USD,Dollar,$
+Uruguay,อุรุกวัย,UY,URY,858,UYU,Peso,$U
+Uzbekistan,อุซเบกิสถาน,UZ,UZB,860,UZS,Som,лв
+Vanuatu,วานูอาตู,VU,VUT,548,VUV,Vatu,VT
+Vatican,วาติกัน,VA,VAT,336,EUR,Euro,€
+Venezuela,เวเนซุเอลา,VE,VEN,862,VEF,Bolivar,Bs.
+Vietnam,เวียดนาม,VN,VNM,704,VND,Dong,₫
+Western Sahara,ซาฮาราตะวันตก,EH,ESH,732,MAD,Dirham,د.م.
+Yemen,เยเมน,YE,YEM,887,YER,Rial,﷼
+Zambia,แซมเบีย,ZM,ZMB,894,ZMW,Kwacha,ZK
+Zimbabwe,ซิมบับเว,ZW,ZWE,716,ZWL,Dollar,$

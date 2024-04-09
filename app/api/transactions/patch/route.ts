@@ -1,0 +1,60 @@
+import { member } from "@/lib/member";
+import { transaction } from "@/lib/transaction";
+import { transactionSchema } from "@/zod/transaction";
+import { getToken } from "next-auth/jwt";
+import { NextRequest, NextResponse } from "next/server";
+
+export async function PATCH(req: NextRequest) {
+    try {
+        const token = await getToken({ req });
+        const memberID = token?.id as string;
+        const hasMember = await member.hasMember({ memberID });
+        if (!hasMember || hasMember.isoNumeric === null) {
+            return NextResponse.json(
+                {
+                    message: "Unauthorized!",
+                    code: "UNAUTHORIZED",
+                },
+                { status: 401 }
+            );
+        }
+        const rawData = await req.json();
+        const body = transactionSchema.patch.safeParse(rawData);
+        if (!body.success) {
+            return NextResponse.json(
+                { message: "Invalid Schema", code: "INVALID_SCHEMA" },
+                { status: 400 }
+            );
+        }
+        const { txid, data } = body.data;
+        const hasTransaction = await transaction.hasTransaction({
+            txid,
+            memberID,
+            deletedAt: null,
+        });
+        if (!hasTransaction) {
+            return NextResponse.json(
+                {
+                    message: "Transaction not found!",
+                    code: "TRANSACTION_404",
+                },
+                { status: 404 }
+            );
+        }
+
+        const merge = { txid, memberID, ...data };
+        await transaction.patch(merge);
+        return NextResponse.json(
+            {
+                message: "Transaction updated successfully",
+                code: "SUCCESS",
+            },
+            { status: 200 }
+        );
+    } catch (error) {
+        return NextResponse.json(
+            { message: "Internal Server Error", code: "INTERNAL_SERVER_ERROR" },
+            { status: 500 }
+        );
+    }
+}
