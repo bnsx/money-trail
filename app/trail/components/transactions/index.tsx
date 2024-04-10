@@ -7,17 +7,6 @@ import { useEffect, useState } from "react";
 import { Loading } from "@/components/Loading";
 import RenderTransaction from "./render";
 import { Filter } from "./filter";
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-} from "@/components/ui/dialog";
-import { Badge } from "@/components/ui/badge";
-import { $Enums } from "@prisma/client";
-import { NumberThousand } from "@/lib/number";
-import { Label } from "@/components/ui/label";
 import { DialogInfo } from "./dialog-info";
 
 interface FetcherProps {
