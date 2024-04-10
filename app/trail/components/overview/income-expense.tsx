@@ -3,6 +3,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { NumberThousand } from "@/lib/number";
 
 interface Props {
     data: {
@@ -23,7 +24,7 @@ export function IncomeAndExpense({
                     variant={"secondary"}
                     className="relative text-xs h-20 w-full xl:w-1/2 text-red-600"
                 >
-                    -{totalExpense}
+                    -{NumberThousand(totalExpense)}
                     <Badge
                         className="absolute top-2 left-2"
                         variant={"outline"}
@@ -37,7 +38,7 @@ export function IncomeAndExpense({
                     variant={"secondary"}
                     className="relative text-xs h-20 w-full xl:w-1/2 text-green-600"
                 >
-                    +{totalIncome}
+                    +{NumberThousand(totalIncome)}
                     <Badge
                         className="absolute top-2 left-2"
                         variant={"outline"}
