@@ -3,7 +3,7 @@
 import { Toaster } from "@/components/ui/sonner";
 import { SessionProvider } from "next-auth/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
+import { Provider as JotaiProvider } from "jotai";
 interface Props {
     children: React.ReactNode;
 }
@@ -15,8 +15,10 @@ export function Providers({ children }: Props) {
         <div>
             <SessionProvider>
                 <QueryClientProvider client={queryClient}>
-                    {children}
-                    <Toaster position="top-right" richColors={true} />
+                    <JotaiProvider>
+                        {children}
+                        <Toaster position="top-right" richColors={true} />
+                    </JotaiProvider>
                 </QueryClientProvider>
             </SessionProvider>
         </div>
