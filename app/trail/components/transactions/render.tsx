@@ -44,7 +44,7 @@ export default function RenderTransaction({ data, onClicked }: Props) {
                         {x.description && (
                             <p
                                 id="_description"
-                                className="text-xs font-light line-clamp-2 xl:line-clamp-3"
+                                className="text-xs line-clamp-2 xl:line-clamp-3"
                             >
                                 {x.description}
                             </p>
