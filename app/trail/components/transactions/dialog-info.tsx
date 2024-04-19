@@ -4,6 +4,7 @@ import {
     Dialog,
     DialogContent,
     DialogDescription,
+    DialogFooter,
     DialogHeader,
     DialogTitle,
 } from "@/components/ui/dialog";
@@ -16,9 +17,18 @@ import {
     DrawerHeader,
     DrawerTitle,
 } from "@/components/ui/drawer";
+import { formatDate } from "@/lib/date";
 import { NumberThousand } from "@/lib/number";
 import { $Enums } from "@prisma/client";
+import {
+    ArchiveIcon,
+    ClockIcon,
+    Pencil2Icon,
+    TrashIcon,
+} from "@radix-ui/react-icons";
 import { useMediaQuery } from "@react-hook/media-query";
+import { useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
 import { Sarabun } from "next/font/google";
 
 const font = Sarabun({
@@ -32,14 +42,29 @@ interface Props {
     data: Transaction;
 }
 export function DialogInfo({ open, data, setOpen }: Props) {
+    const queryClient = useQueryClient();
     const isDesktop = useMediaQuery("(min-width: 768px)");
     const onOpenChange = () => setOpen(!open);
-
+    async function deleteOperation() {
+        try {
+            const r = await axios.post(
+                "/api/transactions/delete",
+                JSON.stringify({ txid: data.txid })
+            );
+            if (r.status === 200) {
+                queryClient.invalidateQueries({ queryKey: ["transactions"] });
+                setOpen(false);
+            }
+        } catch (error) {
+            alert("We're unable to delete this transaction. Please refresh the page again!");
+            setOpen(false);
+        }
+    }
     return (
         <div>
             {isDesktop ? (
                 <Dialog open={open} onOpenChange={onOpenChange}>
-                    <DialogContent>
+                    <DialogContent className="w-full">
                         <DialogHeader>
                             <DialogTitle>{data.title}</DialogTitle>
                             <DialogDescription>
@@ -48,6 +73,7 @@ export function DialogInfo({ open, data, setOpen }: Props) {
                                     amount={data.amount}
                                     currencyCode={data.currencyCode}
                                 />
+                                {/* {formatDate(data.date)} */}
                             </DialogDescription>
                         </DialogHeader>
                         <div className="space-y-1">
@@ -55,6 +81,45 @@ export function DialogInfo({ open, data, setOpen }: Props) {
                                 {data.description || "No Description"}
                             </p>
                         </div>
+                        <DialogFooter className="w-full">
+                            <div className="flex items-center justify-between w-full">
+                                <div className="text-muted-foreground flex items-center gap-2">
+                                    <div className="flex items-center gap-1">
+                                        <ClockIcon className="w-5 h-5" />
+                                        <span className="text-xs font-semibold">
+                                            {formatDate(data.date)}
+                                        </span>
+                                    </div>
+
+                                    <div className="flex items-center gap-1">
+                                        <ArchiveIcon className="w-5 h-5" />
+                                        <span className="text-xs font-s emibold">
+                                            {formatDate(data.createdAt)}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div className="space-x-1">
+                                    <Button
+                                        type="button"
+                                        size={"icon"}
+                                        variant={"destructive"}
+                                        onClick={() => {
+                                            const v = confirm(
+                                                "Do you want to delete?"
+                                            );
+                                            if (v) {
+                                                deleteOperation();
+                                            }
+                                        }}
+                                    >
+                                        <TrashIcon />
+                                    </Button>
+                                    <Button type="button" size={"icon"}>
+                                        <Pencil2Icon />
+                                    </Button>
+                                </div>
+                            </div>
+                        </DialogFooter>
                     </DialogContent>
                 </Dialog>
             ) : (
@@ -68,6 +133,16 @@ export function DialogInfo({ open, data, setOpen }: Props) {
                                     amount={data.amount}
                                     currencyCode={data.currencyCode}
                                 />
+                                <div className="flex justify-evenly">
+                                    <div className="flex gap-1">
+                                        <ClockIcon className="w-5 h-5" />
+                                        <p>{formatDate(data.date)}</p>
+                                    </div>{" "}
+                                    <div className="flex gap-1">
+                                        <ArchiveIcon className="w-5 h-5" />
+                                        <p>{formatDate(data.createdAt)}</p>
+                                    </div>
+                                </div>
                             </DrawerDescription>
                         </DrawerHeader>
                         <div className="space-y-1">
@@ -76,6 +151,11 @@ export function DialogInfo({ open, data, setOpen }: Props) {
                             </p>
                         </div>
                         <DrawerFooter>
+                            <div className="">
+                                <Button type="button" className="w-full">
+                                    Edit
+                                </Button>
+                            </div>
                             <DrawerClose asChild>
                                 <Button type="button" variant={"outline"}>
                                     Close
