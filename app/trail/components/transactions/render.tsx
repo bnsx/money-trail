@@ -1,6 +1,6 @@
 "use client";
 import { Badge } from "@/components/ui/badge";
-import { formatDateAndTime } from "@/lib/date";
+import { formatDate } from "@/lib/date";
 import { NumberThousand } from "@/lib/number";
 import { Sarabun } from "next/font/google";
 
@@ -30,7 +30,7 @@ export default function RenderTransaction({ data, onClicked }: Props) {
                 >
                     <div className="pl-3 xl:pl-5 w-full space-y-0.5">
                         <p id="_date" className="text-xs text-muted-foreground">
-                            {formatDateAndTime(x.date)}
+                            {formatDate(x.date)}
                         </p>
                         <p id="_title" className="text-sm font-semibold">
                             {x.title}
