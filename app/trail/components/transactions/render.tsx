@@ -2,7 +2,13 @@
 import { Badge } from "@/components/ui/badge";
 import { formatDateAndTime } from "@/lib/date";
 import { NumberThousand } from "@/lib/number";
+import { Sarabun } from "next/font/google";
 
+const font = Sarabun({
+    weight: ["100", "200", "300", "400", "600"],
+    subsets: ["thai", "latin"],
+    style: ["italic"],
+});
 interface Props {
     data: Transaction[];
     onClicked: (index: number) => void;
@@ -30,7 +36,7 @@ export default function RenderTransaction({ data, onClicked }: Props) {
                             {x.title}
                         </p>
                         <p
-                            id="_type"
+                            id="_amount"
                             className={
                                 (x.type === "income"
                                     ? "text-green-600"
@@ -44,7 +50,11 @@ export default function RenderTransaction({ data, onClicked }: Props) {
                         {x.description && (
                             <p
                                 id="_description"
-                                className="text-xs line-clamp-2 xl:line-clamp-3"
+                                className={
+                                    font.className +
+                                    " " +
+                                    "line-clamp-2 xl:line-clamp-3"
+                                }
                             >
                                 {x.description}
                             </p>

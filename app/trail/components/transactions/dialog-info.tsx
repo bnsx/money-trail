@@ -1,4 +1,5 @@
 "use client";
+import { Button } from "@/components/ui/button";
 import {
     Dialog,
     DialogContent,
@@ -6,8 +7,18 @@ import {
     DialogHeader,
     DialogTitle,
 } from "@/components/ui/dialog";
+import {
+    Drawer,
+    DrawerClose,
+    DrawerContent,
+    DrawerDescription,
+    DrawerFooter,
+    DrawerHeader,
+    DrawerTitle,
+} from "@/components/ui/drawer";
 import { NumberThousand } from "@/lib/number";
 import { $Enums } from "@prisma/client";
+import { useMediaQuery } from "@react-hook/media-query";
 import { Sarabun } from "next/font/google";
 
 const font = Sarabun({
@@ -17,30 +28,64 @@ const font = Sarabun({
 });
 interface Props {
     open: boolean;
-    onOpenChange: () => void;
+    setOpen: (value: boolean) => void;
     data: Transaction;
 }
-export function DialogInfo({ open, onOpenChange, data }: Props) {
+export function DialogInfo({ open, data, setOpen }: Props) {
+    const isDesktop = useMediaQuery("(min-width: 768px)");
+    const onOpenChange = () => setOpen(!open);
+
     return (
-        <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent>
-                <DialogHeader>
-                    <DialogTitle>{data.title}</DialogTitle>
-                    <DialogDescription>
-                        <Amount
-                            type={data.type}
-                            amount={data.amount}
-                            currencyCode={data.currencyCode}
-                        />
-                    </DialogDescription>
-                </DialogHeader>
-                <div className="space-y-1">
-                    <p className={font.className}>
-                        {data.description || "No Description"}
-                    </p>
-                </div>
-            </DialogContent>
-        </Dialog>
+        <div>
+            {isDesktop ? (
+                <Dialog open={open} onOpenChange={onOpenChange}>
+                    <DialogContent>
+                        <DialogHeader>
+                            <DialogTitle>{data.title}</DialogTitle>
+                            <DialogDescription>
+                                <Amount
+                                    type={data.type}
+                                    amount={data.amount}
+                                    currencyCode={data.currencyCode}
+                                />
+                            </DialogDescription>
+                        </DialogHeader>
+                        <div className="space-y-1">
+                            <p className={font.className}>
+                                {data.description || "No Description"}
+                            </p>
+                        </div>
+                    </DialogContent>
+                </Dialog>
+            ) : (
+                <Drawer open={open} onOpenChange={setOpen}>
+                    <DrawerContent>
+                        <DrawerHeader>
+                            <DrawerTitle>{data.title}</DrawerTitle>
+                            <DrawerDescription>
+                                <Amount
+                                    type={data.type}
+                                    amount={data.amount}
+                                    currencyCode={data.currencyCode}
+                                />
+                            </DrawerDescription>
+                        </DrawerHeader>
+                        <div className="space-y-1">
+                            <p className={font.className + " " + "text-center"}>
+                                {data.description || "No Description"}
+                            </p>
+                        </div>
+                        <DrawerFooter>
+                            <DrawerClose asChild>
+                                <Button type="button" variant={"outline"}>
+                                    Close
+                                </Button>
+                            </DrawerClose>
+                        </DrawerFooter>
+                    </DrawerContent>
+                </Drawer>
+            )}
+        </div>
     );
 }
 

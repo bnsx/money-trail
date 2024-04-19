@@ -10,9 +10,11 @@ import { Filter } from "./filter";
 import { DialogInfo } from "./dialog-info";
 
 interface FetcherProps {
-    pageIndex: number;
-    pageSize: number;
-    sort: "newer" | "older";
+    pageIndex: string;
+    pageSize: string;
+    fromDate: string;
+    toDate: string;
+    type: string;
 }
 
 interface ResponseData {
@@ -21,31 +23,49 @@ interface ResponseData {
     pageSize: number;
     pageCount: number;
 }
-async function fetcher({ pageIndex, pageSize, sort }: FetcherProps) {
+async function fetcher({
+    pageIndex,
+    pageSize,
+    fromDate,
+    toDate,
+    type,
+}: FetcherProps) {
     await new Promise((resolve) => setTimeout(resolve, 400));
 
     const r = await axios.get("/api/transactions", {
-        params: { pageIndex, pageSize, sort },
+        params: { pageIndex, pageSize, fromDate, toDate, type },
     });
     return r.data as ResponseData;
 }
 export function TransactionsDisplay() {
     const router = useRouter();
     const searchParams = useSearchParams();
-    const pageIndex = parseInt(searchParams.get("pageIndex") || "1", 10);
-    const pageSize = parseInt(searchParams.get("pageSize") || "10", 10);
-    const sort = (searchParams.get("sort") || "newer") as "newer" | "older";
-    const startDate = searchParams.get("startDate");
-    const endDate = searchParams.get("endDate");
+    const pageIndex = parseInt(
+        searchParams.get("pageIndex") || "1",
+        10
+    ).toString();
+    const pageSize = parseInt(
+        searchParams.get("pageSize") || "10",
+        10
+    ).toString();
+    const sortByDate = (searchParams.get("sortByDate") || "newer") as
+        | "newer"
+        | "older";
+    const fromDate = searchParams.get("from") || "";
+    const toDate = searchParams.get("to") || "";
+    const type = (searchParams.get("type") || "all") as
+        | "all"
+        | "income"
+        | "expense";
     const { data, isFetching, refetch } = useQuery({
         queryKey: ["transactions"],
-        queryFn: () => fetcher({ pageIndex, pageSize, sort }),
+        queryFn: () => fetcher({ pageIndex, pageSize, fromDate, toDate, type }),
     });
+    const isData = SortByDateFn(sortByDate);
     const [currentValue, setCurrentValue] = useState<Transaction | null>(null);
     const [open, setOpen] = useState(false);
-    const onOpenChange = () => setOpen(!open);
     const onOpenModal = (index: number) => {
-        const d = data?.data.find((x, i) => i === index);
+        const d = data?.data.find((_, i) => i === index);
         if (d) {
             setCurrentValue(d);
             setOpen(true);
@@ -53,10 +73,24 @@ export function TransactionsDisplay() {
             router.refresh();
         }
     };
+    function SortByDateFn(by: "newer" | "older") {
+        if (by === "older") {
+            return data?.data.sort(
+                (a, b) =>
+                    new Date(a.createdAt).getTime() -
+                    new Date(b.createdAt).getTime()
+            );
+        }
+        return data?.data.sort(
+            (a, b) =>
+                new Date(b.createdAt).getTime() -
+                new Date(a.createdAt).getTime()
+        );
+    }
     useEffect(() => {
         refetch();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [pageIndex, pageSize, sort]);
+    }, [pageIndex, pageSize, fromDate, toDate, type, sortByDate]);
     useEffect(() => {
         if (open === false) {
             setCurrentValue(null);
@@ -64,31 +98,29 @@ export function TransactionsDisplay() {
     }, [open]);
     return (
         <div className="xl:w-2/4 space-y-3">
-            <div className="xl:flex justify-between items-center">
+            <div className="flex justify-between items-center">
                 <h1 className="text-xl font-semibold">Transactions</h1>
+                <Filter />
             </div>
             <div
                 className={
                     "min-h-[480px] max-h-[480px] overflow-y-scroll overflow-hidden"
                 }
             >
-                {/* <Loading /> */}
                 {currentValue && (
                     <DialogInfo
                         open={open}
-                        onOpenChange={onOpenChange}
+                        setOpen={setOpen}
                         data={currentValue}
                     />
                 )}
-                {isFetching || !data ? (
+                {isFetching || !isData ? (
                     <Loading />
                 ) : (
-                    <RenderTransaction onClicked={onClicked} data={data.data} />
+                    <RenderTransaction onClicked={onOpenModal} data={isData} />
                 )}
             </div>
             <div className="space-y-1">
-                <Filter />
-
                 <Pagination.Navigator
                     isFetching={isFetching}
                     pageIndex={data?.pageIndex as number}
