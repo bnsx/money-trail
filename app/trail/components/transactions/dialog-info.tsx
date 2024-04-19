@@ -8,7 +8,13 @@ import {
 } from "@/components/ui/dialog";
 import { NumberThousand } from "@/lib/number";
 import { $Enums } from "@prisma/client";
+import { Sarabun } from "next/font/google";
 
+const font = Sarabun({
+    weight: ["100", "200", "300", "400", "600"],
+    subsets: ["thai", "latin"],
+    style: ["normal"],
+});
 interface Props {
     open: boolean;
     onOpenChange: () => void;
@@ -29,7 +35,7 @@ export function DialogInfo({ open, onOpenChange, data }: Props) {
                     </DialogDescription>
                 </DialogHeader>
                 <div className="space-y-1">
-                    <p className="text-xs font-light">
+                    <p className={font.className}>
                         {data.description || "No Description"}
                     </p>
                 </div>
