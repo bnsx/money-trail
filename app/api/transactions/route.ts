@@ -4,6 +4,7 @@ import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
 
 const pageSizeList = [5, 10, 15, 20];
+const typeList = ["all", "income", "expense"];
 
 export async function GET(req: NextRequest) {
     try {
@@ -19,20 +20,29 @@ export async function GET(req: NextRequest) {
                 { status: 401 }
             );
         }
+        
         let pageIndex = parseInt(
             req.nextUrl.searchParams.get("pageIndex") || "1",
             10
         );
+        
         let pageSize = parseInt(
             req.nextUrl.searchParams.get("pageSize") || "10",
             10
         );
-        const sort = (req.nextUrl.searchParams.get("sort") || "newer") as
-            | "newer"
-            | "older";
+        
         if (!pageSizeList.includes(pageSize)) {
             pageSize = 10;
         }
+
+        let type = (req.nextUrl.searchParams.get("type") || "all") as
+            | "all"
+            | "income"
+            | "expense";
+        if (!typeList.includes(type)) {
+            type = "all";
+        }
+       
         const data = await prisma.transactions.findMany({
             where: { memberID, deletedAt: null },
             select: {
@@ -64,30 +74,6 @@ export async function GET(req: NextRequest) {
             categories: undefined,
             countries: undefined,
         }));
-
-        switch (sort) {
-            case "newer":
-                entries.sort(
-                    (a, b) =>
-                        new Date(b.createdAt).getTime() -
-                        new Date(a.createdAt).getTime()
-                );
-                break;
-            case "older":
-                entries.sort(
-                    (a, b) =>
-                        new Date(a.createdAt).getTime() -
-                        new Date(b.createdAt).getTime()
-                );
-                break;
-            default:
-                entries.sort(
-                    (a, b) =>
-                        new Date(b.createdAt).getTime() -
-                        new Date(a.createdAt).getTime()
-                );
-                break;
-        }
 
         return NextResponse.json(
             { data: entries, pageIndex, pageSize, pageCount },
