@@ -44,7 +44,7 @@ export function TransactionsDisplay() {
     const [currentValue, setCurrentValue] = useState<Transaction | null>(null);
     const [open, setOpen] = useState(false);
     const onOpenChange = () => setOpen(!open);
-    const onClicked = (index: number) => {
+    const onOpenModal = (index: number) => {
         const d = data?.data.find((x, i) => i === index);
         if (d) {
             setCurrentValue(d);
