@@ -31,7 +31,7 @@ export function OverView({ incomeAndExpense }: Props) {
                 <CardContent className="xl:min-w-96 xl:max-w-96">
                     <IncomeAndExpense data={incomeAndExpense} />
                 </CardContent>
-                <CardFooter className="text-sm text-muted-foreground">Updated data at last 30 Day</CardFooter>
+                <CardFooter className="text-xs text-muted-foreground">Data updated within the last 30 days.</CardFooter>
             </Card>
         );
     }
