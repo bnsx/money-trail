@@ -4,7 +4,7 @@ import { transactionSchema } from "@/zod/transaction";
 import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function DELETE(req: NextRequest) {
+export async function POST(req: NextRequest) {
     try {
         const token = await getToken({ req });
         const memberID = token?.id as string;
