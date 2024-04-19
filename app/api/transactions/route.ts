@@ -3,7 +3,7 @@ import { member } from "@/lib/member";
 import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
 
-const pageSizeList = [5, 10, 15, 20];
+const pageSizeList = [10, 25, 50, 100];
 const typeList = ["all", "income", "expense"];
 
 export async function GET(req: NextRequest) {

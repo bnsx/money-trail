@@ -17,7 +17,7 @@ interface Props {
     pageSize: number;
     isFetching: boolean;
 }
-const size = [5, 10, 15, 20];
+const pageSizeList = [10, 25, 50, 100];
 export function PageSize({
     router,
     pathname,
@@ -53,7 +53,7 @@ export function PageSize({
                 <SelectValue placeholder="Page Size" />
             </SelectTrigger>
             <SelectContent>
-                {size.map((x) => (
+                {pageSizeList.map((x) => (
                     <SelectItem key={x} value={x.toString()}>
                         {x}
                     </SelectItem>
