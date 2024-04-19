@@ -86,14 +86,14 @@ export function DialogInfo({ open, data, setOpen }: Props) {
                                 <div className="text-muted-foreground flex items-center gap-2">
                                     <div className="flex items-center gap-1">
                                         <ClockIcon className="w-5 h-5" />
-                                        <span className="text-xs font-semibold">
+                                        <span className="text-xs">
                                             {formatDate(data.date)}
                                         </span>
                                     </div>
 
                                     <div className="flex items-center gap-1">
                                         <ArchiveIcon className="w-5 h-5" />
-                                        <span className="text-xs font-s emibold">
+                                        <span className="text-xs">
                                             {formatDate(data.createdAt)}
                                         </span>
                                     </div>
