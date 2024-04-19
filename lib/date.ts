@@ -1,4 +1,4 @@
-export function formatDateAndTime(dateString: Date | string ): string {
+export function formatDateAndTime(dateString: Date | string): string {
     const date = new Date(dateString);
 
     if (isNaN(date.getTime())) {
@@ -17,4 +17,17 @@ export function formatDateAndTime(dateString: Date | string ): string {
     };
 
     return new Intl.DateTimeFormat("th-TH", options).format(date);
+}
+
+export function toUnixTime(data: Date | string | undefined) {
+    if (data === undefined) {
+        return undefined;
+    }
+    return Math.floor(new Date(data).getTime() / 1000);
+}
+export function toDateTime(data: number | undefined) {
+    if (typeof data === "undefined") {
+        return undefined;
+    }
+    return new Date(data * 1000);
 }
