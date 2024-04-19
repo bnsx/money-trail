@@ -77,14 +77,14 @@ export function TransactionsDisplay() {
         if (by === "older") {
             return data?.data.sort(
                 (a, b) =>
-                    new Date(a.date).getTime() -
-                    new Date(b.date).getTime()
+                    new Date(a.createdAt).getTime() -
+                    new Date(b.createdAt).getTime()
             );
         }
         return data?.data.sort(
             (a, b) =>
-                new Date(b.date).getTime() -
-                new Date(a.date).getTime()
+                new Date(b.createdAt).getTime() -
+                new Date(a.createdAt).getTime()
         );
     }
     useEffect(() => {
