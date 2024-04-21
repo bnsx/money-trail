@@ -1,10 +1,10 @@
 {
-    "prisma": {
-        "seed": "tsx prisma/seed.ts"
-    },
     "name": "money-trail",
     "version": "0.1.0",
     "private": true,
+    "prisma": {
+        "seed": "tsx prisma/seed.ts"
+    },
     "scripts": {
         "dev": "next dev",
         "prebuild": "prisma db seed && prisma generate",
