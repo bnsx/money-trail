@@ -4,6 +4,7 @@ import { prisma } from "@/lib/db";
 
 async function importCountryData() {
     const filePath = "prisma/countries.csv";
+    const countriesData = [];
 
     const stream = createReadStream(filePath).pipe(csv({ separator: "," }));
 
@@ -18,19 +19,22 @@ async function importCountryData() {
             currencyName,
             currencySymbol,
         } = row;
-        await prisma.countries.create({
-            data: {
-                name,
-                nameTH,
-                isoChar2,
-                isoChar3,
-                isoNumeric: parseInt(isoNumeric, 10),
-                currencyCode,
-                currencyName,
-                currencySymbol,
-            },
+        countriesData.push({
+            name,
+            nameTH,
+            isoChar2,
+            isoChar3,
+            isoNumeric: parseInt(isoNumeric, 10),
+            currencyCode,
+            currencyName,
+            currencySymbol,
         });
     }
+    console.log("[+] Pushing country data to the database...");
+    await prisma.countries.createMany({
+        data: countriesData,
+        skipDuplicates: true, // Skip duplicate entries
+    });
 
     console.log("[+] Country data has been imported into the table!");
 }
@@ -43,7 +47,7 @@ async function main() {
     } else {
         console.log("[+] Country data is available in the table!");
     }
-    await prisma.$disconnect()
+    await prisma.$disconnect();
 }
 
 main();
