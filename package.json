@@ -1,4 +1,7 @@
 {
+  "prisma":{
+    "seed":"tsx prisma/seed.ts"
+  },
   "name": "money-trail",
   "version": "0.1.0",
   "private": true,
