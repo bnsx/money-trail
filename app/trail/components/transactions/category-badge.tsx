@@ -8,7 +8,7 @@ interface Props {
 export function CategoryBadge({ data }: Props) {
     return (
         <Badge
-            className={`${sarabunFont.className} w-fit h-fit`}
+            className={`${sarabunFont.className} text-sm w-fit h-fit`}
             variant={"secondary"}
         >
             {data || "Uncategory"}
