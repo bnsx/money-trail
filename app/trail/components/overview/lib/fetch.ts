@@ -22,6 +22,6 @@ export async function getIncomeAndExpense({ memberID }: { memberID: string }) {
     const totalExpense = transactions
         .filter((x) => x.type === "expense")
         .reduce((acc, cur) => acc + Number(cur.amount), 0)
-        .toFixed();
+        .toFixed(2);
     return { totalIncome, totalExpense };
 }
