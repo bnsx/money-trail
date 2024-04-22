@@ -18,7 +18,7 @@ import { transactionSchema } from "@/zod/transaction";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { Cross2Icon, DiscIcon } from "@radix-ui/react-icons";
