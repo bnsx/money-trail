@@ -76,6 +76,7 @@ export function AddTransactionButton() {
                 queryClient.invalidateQueries({ queryKey: ["transactions"] });
                 form.reset();
                 setSubmit(false);
+                setOpen(false);
                 return router.refresh();
             }
         } catch (error) {
@@ -85,6 +86,7 @@ export function AddTransactionButton() {
                     description: "Page will reload again!",
                 });
                 setSubmit(false);
+                setOpen(false);
                 router.refresh();
             }
         }
