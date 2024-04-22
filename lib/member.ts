@@ -12,6 +12,23 @@ interface hasMemberProps {
     username?: string;
     email?: string;
     status?: boolean;
+    select?: {
+        username?: boolean;
+        email?: boolean;
+        role?: boolean;
+        status?: boolean;
+        provider?: boolean;
+        countries?: {
+            select?: {
+                currencyCode?: boolean;
+            };
+        };
+        memberID?: boolean;
+        createdAt?: boolean;
+        updatedAt?: boolean;
+        deletedAt?: boolean;
+        isoNumeric?: boolean;
+    };
 }
 
 class Member {
@@ -30,22 +47,36 @@ class Member {
         username,
         email,
         status = true,
+        select = {
+            username: true,
+            email: true,
+            role: true,
+            status: true,
+            provider: true,
+            countries: { select: { currencyCode: true } },
+            memberID: true,
+            createdAt: true,
+            updatedAt: true,
+            deletedAt: true,
+            isoNumeric: true,
+        },
     }: hasMemberProps) {
         return await prisma.members.findUnique({
             where: { memberID, username, email, status },
-            select: {
-                memberID: true,
-                username: true,
-                email: true,
-                status: true,
-                role: true,
-                provider: true,
-                createdAt: true,
-                updatedAt: true,
-                deletedAt: true,
-                isoNumeric: true,
-                countries: { select: { currencyCode: true } },
-            },
+            select,
+            // select: {
+            //     memberID: true,
+            //     username: true,
+            //     email: true,
+            //     status: true,
+            //     role: true,
+            //     provider: true,
+            //     createdAt: true,
+            //     updatedAt: true,
+            //     deletedAt: true,
+            //     isoNumeric: true,
+            //     countries: { select: { currencyCode: true } },
+            // },
         });
     }
 }
