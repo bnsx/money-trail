@@ -23,6 +23,7 @@ interface Props<T, K> {
     placeholder?: string;
     data?: { label: string; value: string }[];
     disabled?: boolean;
+    className?: string;
 }
 export default function FormSelect<T, K extends keyof T>({
     control,
@@ -32,6 +33,7 @@ export default function FormSelect<T, K extends keyof T>({
     schema,
     data,
     disabled = false,
+    className = ""
 }: Props<T, K>) {
     return (
         <FormField
@@ -59,7 +61,7 @@ export default function FormSelect<T, K extends keyof T>({
                                 </SelectItem>
                             ) : (
                                 data?.map((v) => (
-                                    <SelectItem key={v.value} value={v.value}>
+                                    <SelectItem key={v.value} value={v.value} className={className}>
                                         {v.label}
                                     </SelectItem>
                                 ))
