@@ -75,8 +75,9 @@ export const authOptions: NextAuthOptions = {
             const hasMember = await member.hasMember({
                 memberID: session.user.id,
                 email: session.user.email,
+                select: { memberID: true, status: true },
             });
-            if (!hasMember) {
+            if (!hasMember || hasMember.status === false) {
                 session.user.forceSignOut = true;
             }
         },
