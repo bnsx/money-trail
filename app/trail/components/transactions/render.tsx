@@ -33,7 +33,7 @@ export default function RenderTransaction({ data, onClicked }: Props) {
                         </p>
                         <p
                             id="_title"
-                            className={`${font.className} text-sm font-semibold`}
+                            className={`${font.className} text-md font-semibold`}
                         >
                             {x.title}
                         </p>
