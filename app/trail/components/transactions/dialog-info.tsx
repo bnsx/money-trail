@@ -24,13 +24,13 @@ import { $Enums } from "@prisma/client";
 import {
     ArchiveIcon,
     ClockIcon,
-    Pencil2Icon,
     TrashIcon,
 } from "@radix-ui/react-icons";
 import { useMediaQuery } from "@react-hook/media-query";
 import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { CategoryBadge } from "./category-badge";
+import { DialogEdit } from "./dialog-edit";
 
 interface Props {
     open: boolean;
@@ -117,9 +117,11 @@ export function DialogInfo({ open, data, setOpen }: Props) {
                                     >
                                         <TrashIcon />
                                     </Button>
-                                    <Button type="button" size={"icon"}>
-                                        <Pencil2Icon />
-                                    </Button>
+                                    <DialogEdit
+                                        isDesktop={isDesktop}
+                                        data={data}
+                                        setDialogInfo={setOpen}
+                                    />
                                 </div>
                             </div>
                         </DialogFooter>
@@ -164,11 +166,11 @@ export function DialogInfo({ open, data, setOpen }: Props) {
                             </p>
                         </div>
                         <DrawerFooter>
-                            <div className="">
-                                <Button type="button" className="w-full">
-                                    Edit
-                                </Button>
-                            </div>
+                            <DialogEdit
+                                isDesktop={isDesktop}
+                                data={data}
+                                setDialogInfo={setOpen}
+                            />
                             <DrawerClose asChild>
                                 <Button type="button" variant={"outline"}>
                                     Close
