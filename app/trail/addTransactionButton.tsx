@@ -124,7 +124,7 @@ export function AddTransactionButton() {
                                 onSubmit={form.handleSubmit(onSubmit)}
                                 className="space-y-5"
                             >
-                                <div className="space-y-3 px-2">
+                                <div className="space-y-3 px-4">
                                     <FormInput
                                         control={form.control}
                                         schema={schema}
