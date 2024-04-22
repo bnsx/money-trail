@@ -32,7 +32,7 @@ import axios from "axios";
 import { Sarabun } from "next/font/google";
 
 const font = Sarabun({
-    weight: ["100", "200", "300", "400", "600"],
+    weight: ["100", "200", "300", "400", "500", "600", "700"],
     subsets: ["thai", "latin"],
     style: ["normal"],
 });
