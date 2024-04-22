@@ -7,7 +7,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 export async function Navbar() {
     const session = await getServerSession(authOptions);
     return (
-        <nav className="sticky top-0">
+        <nav className="sticky top-0 z-[1]">
             <div className="flex items-center justify-between xl:px-32 px-4 py-4 backdrop-blur bg-transparent">
                 <Link href={"/"} className="flex gap-2">
                     <h1 className="text-lg xl:text-xl font-bold">Money</h1>
