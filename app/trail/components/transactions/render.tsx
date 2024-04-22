@@ -23,11 +23,11 @@ export default function RenderTransaction({ data, onClicked }: Props) {
                 <div
                     key={x.txid}
                     className={
-                        "border-b xl:flex items-center hover:bg-slate-100 py-10 space-y-3 xl:space-y-0 rounded-md cursor-pointer"
+                        "border-b xl:flex justify-between items-center hover:bg-slate-100 py-10 space-y-3 xl:space-y-0 rounded-md cursor-pointer"
                     }
                     onClick={() => onClicked(i)}
                 >
-                    <div className="pl-3 xl:pl-5 w-full space-y-0.5">
+                    <div className="pl-3 xl:pl-5 space-y-0.5">
                         <p id="_date" className="text-xs text-muted-foreground">
                             {formatDate(x.date)}
                         </p>
