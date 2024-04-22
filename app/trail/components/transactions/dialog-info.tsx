@@ -129,21 +129,29 @@ export function DialogInfo({ open, data, setOpen }: Props) {
                 <Drawer open={open} onOpenChange={setOpen}>
                     <DrawerContent>
                         <DrawerHeader>
-                            <DrawerTitle>{data.title}</DrawerTitle>
-                            <DrawerDescription>
+                            <DrawerTitle className={sarabunFont.className}>
+                                {data.title}
+                            </DrawerTitle>
+                            <DrawerDescription className="space-y-1">
                                 <Amount
                                     type={data.type}
                                     amount={data.amount}
                                     currencyCode={data.currencyCode}
                                 />
-                                <div className="flex justify-evenly">
+                                <CategoryBadge data={data.category?.name} />
+
+                                <div className="flex items-center justify-evenly">
                                     <div className="flex gap-1">
-                                        <ClockIcon className="w-5 h-5" />
-                                        <p>{formatDate(data.date)}</p>
+                                        <ClockIcon className="w-4 h-4" />
+                                        <p className="text-xs">
+                                            {formatDate(data.date)}
+                                        </p>
                                     </div>{" "}
                                     <div className="flex gap-1">
-                                        <ArchiveIcon className="w-5 h-5" />
-                                        <p>{formatDate(data.createdAt)}</p>
+                                        <ArchiveIcon className="w-4 h-4" />
+                                        <p className="text-xs">
+                                            {formatDate(data.createdAt)}
+                                        </p>
                                     </div>
                                 </div>
                             </DrawerDescription>
