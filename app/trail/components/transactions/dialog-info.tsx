@@ -18,6 +18,7 @@ import {
     DrawerTitle,
 } from "@/components/ui/drawer";
 import { formatDate } from "@/lib/date";
+import { sarabunFont } from "@/lib/font";
 import { NumberThousand } from "@/lib/number";
 import { $Enums } from "@prisma/client";
 import {
@@ -29,13 +30,7 @@ import {
 import { useMediaQuery } from "@react-hook/media-query";
 import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import { Sarabun } from "next/font/google";
 
-const font = Sarabun({
-    weight: ["100", "200", "300", "400", "500", "600", "700"],
-    subsets: ["thai", "latin"],
-    style: ["normal"],
-});
 interface Props {
     open: boolean;
     setOpen: (value: boolean) => void;
@@ -56,7 +51,9 @@ export function DialogInfo({ open, data, setOpen }: Props) {
                 setOpen(false);
             }
         } catch (error) {
-            alert("We're unable to delete this transaction. Please refresh the page again!");
+            alert(
+                "We're unable to delete this transaction. Please refresh the page again!"
+            );
             setOpen(false);
         }
     }
@@ -66,7 +63,9 @@ export function DialogInfo({ open, data, setOpen }: Props) {
                 <Dialog open={open} onOpenChange={onOpenChange}>
                     <DialogContent className="w-full">
                         <DialogHeader>
-                            <DialogTitle className={font.className}>{data.title}</DialogTitle>
+                            <DialogTitle className={sarabunFont.className}>
+                                {data.title} {data.category?.name}
+                            </DialogTitle>
                             <DialogDescription>
                                 <Amount
                                     type={data.type}
@@ -77,7 +76,7 @@ export function DialogInfo({ open, data, setOpen }: Props) {
                             </DialogDescription>
                         </DialogHeader>
                         <div className="space-y-1">
-                            <p className={font.className}>
+                            <p className={sarabunFont.className}>
                                 {data.description || "No Description"}
                             </p>
                         </div>
@@ -146,7 +145,9 @@ export function DialogInfo({ open, data, setOpen }: Props) {
                             </DrawerDescription>
                         </DrawerHeader>
                         <div className="space-y-1">
-                            <p className={font.className + " " + "text-center"}>
+                            <p
+                                className={`${sarabunFont.className} text-center`}
+                            >
                                 {data.description || "No Description"}
                             </p>
                         </div>
