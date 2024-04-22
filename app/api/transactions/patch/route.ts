@@ -1,3 +1,4 @@
+import { category } from "@/lib/category";
 import { member } from "@/lib/member";
 import { transaction } from "@/lib/transaction";
 import { transactionSchema } from "@/zod/transaction";
@@ -26,7 +27,22 @@ export async function PATCH(req: NextRequest) {
                 { status: 400 }
             );
         }
-        const { txid, data } = body.data;
+        let { txid, data } = body.data;
+        if (data.categoryID !== null) {
+            if (data.categoryID === "null") {
+                // yes i mean null in string
+                data.categoryID = null;
+            } else {
+                const hasCategory = await category.hasCategory({
+                    categoryID: data.categoryID,
+                    memberID,
+                });
+                if (!hasCategory) {
+                    data.categoryID = null;
+                }
+            }
+        }
+
         const hasTransaction = await transaction.hasTransaction({
             txid,
             memberID,

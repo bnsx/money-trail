@@ -1,3 +1,4 @@
+import { category } from "@/lib/category";
 import { member } from "@/lib/member";
 import { transaction } from "@/lib/transaction";
 import { transactionSchema } from "@/zod/transaction";
@@ -19,17 +20,26 @@ export async function POST(req: NextRequest) {
             );
         }
         const rawData = await req.json();
-        const body = transactionSchema.create
-            .transform((x) => ({ ...x, description: x.description || null }))
-            .safeParse(rawData);
+        const body = transactionSchema.create.safeParse(rawData);
         if (!body.success) {
             return NextResponse.json(
                 { message: "Invalid Schema", code: "INVALID_SCHEMA" },
                 { status: 400 }
             );
         }
+        let { data } = body;
+
+        if (data.categoryID !== null) {
+            const hasCategory = await category.hasCategory({
+                categoryID: data.categoryID,
+                memberID,
+            });
+            if (!hasCategory) {
+                data.categoryID = null;
+            }
+        }
         const merge = {
-            ...body.data,
+            ...data,
             memberID,
             isoNumeric: hasMember.isoNumeric,
         };
