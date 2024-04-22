@@ -18,15 +18,17 @@ interface Props<T, K> {
     name: Path<T>;
     control: Control<T | any>;
     schema?: Schema<T>;
+    defaultValue?: number;
 }
 export function FormNumber<T, K>({
     label,
     name,
     control,
     schema,
+    defaultValue = 0,
 }: Props<T, K>) {
     const { onChange } = control.register(name);
-    const [amount, setAmount] = useState(0);
+    const [amount, setAmount] = useState(defaultValue);
     const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         const value = Number(event.target.value);
         if (isNaN(value) === false) {
