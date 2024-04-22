@@ -1,8 +1,8 @@
 "use client";
-import { Badge } from "@/components/ui/badge";
 import { formatDate } from "@/lib/date";
 import { NumberThousand } from "@/lib/number";
 import { Sarabun } from "next/font/google";
+import { CategoryBadge } from "./categoryBadge";
 
 const font = Sarabun({
     weight: ["100", "200", "300", "400", "500", "600", "700"],
