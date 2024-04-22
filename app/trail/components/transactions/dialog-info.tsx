@@ -30,6 +30,7 @@ import {
 import { useMediaQuery } from "@react-hook/media-query";
 import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
+import { CategoryBadge } from "./category-badge";
 
 interface Props {
     open: boolean;
@@ -63,8 +64,11 @@ export function DialogInfo({ open, data, setOpen }: Props) {
                 <Dialog open={open} onOpenChange={onOpenChange}>
                     <DialogContent className="w-full">
                         <DialogHeader>
-                            <DialogTitle className={sarabunFont.className}>
-                                {data.title} {data.category?.name}
+                            <DialogTitle
+                                className={`${sarabunFont.className} space-x-3`}
+                            >
+                                <span>{data.title}</span>
+                                <CategoryBadge data={data.category?.name} />
                             </DialogTitle>
                             <DialogDescription>
                                 <Amount
