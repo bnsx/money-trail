@@ -5,9 +5,8 @@ import { NumberThousand } from "@/lib/number";
 import { Sarabun } from "next/font/google";
 
 const font = Sarabun({
-    weight: ["100", "200", "300", "400", "600"],
+    weight: ["100", "200", "300", "400", "500", "600", "700"],
     subsets: ["thai", "latin"],
-    style: ["italic"],
 });
 interface Props {
     data: Transaction[];
@@ -32,7 +31,10 @@ export default function RenderTransaction({ data, onClicked }: Props) {
                         <p id="_date" className="text-xs text-muted-foreground">
                             {formatDate(x.date)}
                         </p>
-                        <p id="_title" className="text-sm font-semibold">
+                        <p
+                            id="_title"
+                            className={`${font.className} text-sm font-semibold`}
+                        >
                             {x.title}
                         </p>
                         <p
@@ -50,11 +52,7 @@ export default function RenderTransaction({ data, onClicked }: Props) {
                         {x.description && (
                             <p
                                 id="_description"
-                                className={
-                                    font.className +
-                                    " " +
-                                    "line-clamp-2 xl:line-clamp-3"
-                                }
+                                className={`${font.className} line-clamp-2 xl:line-clamp-3`}
                             >
                                 {x.description}
                             </p>
@@ -62,7 +60,10 @@ export default function RenderTransaction({ data, onClicked }: Props) {
                     </div>
 
                     <div className="pr-3 xl:pr-5 flex justify-end items-center ">
-                        <Badge className="w-fit h-fit" variant={"secondary"}>
+                        <Badge
+                            className={`${font.className} w-fit h-fit`}
+                            variant={"secondary"}
+                        >
                             {x.category?.name || "Uncategory"}
                         </Badge>
 
