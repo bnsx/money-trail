@@ -66,7 +66,7 @@ export function DialogInfo({ open, data, setOpen }: Props) {
                 <Dialog open={open} onOpenChange={onOpenChange}>
                     <DialogContent className="w-full">
                         <DialogHeader>
-                            <DialogTitle>{data.title}</DialogTitle>
+                            <DialogTitle className={font.className}>{data.title}</DialogTitle>
                             <DialogDescription>
                                 <Amount
                                     type={data.type}
