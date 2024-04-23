@@ -31,3 +31,16 @@ export function toDateTime(data: number | undefined) {
     }
     return new Date(data * 1000);
 }
+
+export function isOneDayLeft(data: Date | string) {
+    const today = new Date();
+
+    // Get the date from the input data
+    const inputDate = new Date(data);
+
+    // Check if the dates are one day apart
+    const isOneDay =
+        today.getTime() - inputDate.getTime() >= 24 * 60 * 60 * 1000;
+
+    return isOneDay;
+}

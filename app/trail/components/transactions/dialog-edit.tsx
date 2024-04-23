@@ -25,6 +25,7 @@ import {
     DrawerTrigger,
 } from "@/components/ui/drawer";
 import { Form } from "@/components/ui/form";
+import { isOneDayLeft } from "@/lib/date";
 import { transactionSchema } from "@/zod/transaction";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Pencil2Icon } from "@radix-ui/react-icons";
@@ -133,12 +134,13 @@ export function DialogEdit({ isDesktop, data, setDialogInfo }: Props) {
             }
         }
     };
+    const disabled = isOneDayLeft(data.createdAt);
     return (
         <>
             {isDesktop ? (
                 <Dialog open={open} onOpenChange={onOpenChange}>
-                    <DialogTrigger>
-                        <Button type="button" size={"icon"}>
+                    <DialogTrigger asChild>
+                        <Button type="button" size={"icon"} disabled={disabled}>
                             <Pencil2Icon />
                         </Button>
                     </DialogTrigger>
@@ -227,7 +229,7 @@ export function DialogEdit({ isDesktop, data, setDialogInfo }: Props) {
             ) : (
                 <Drawer>
                     <DrawerTrigger asChild>
-                        <Button type="button" className="w-full">
+                        <Button type="button" className="w-full" disabled={disabled}>
                             Edit
                         </Button>
                     </DrawerTrigger>
