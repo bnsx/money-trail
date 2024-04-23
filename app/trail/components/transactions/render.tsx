@@ -61,11 +61,6 @@ export default function RenderTransaction({ data, onClicked }: Props) {
 
                     <div className="pr-3 xl:pr-5 flex justify-end items-center ">
                         <CategoryBadge data={x.category?.name} />
-
-                        {/* <p className="text-sm">{formatDateAndTime(x.date)}</p> */}
-                        {/* <p className="text-muted-foreground text-xs">
-                                Recorded at {formatDateAndTime(x.createdAt)}
-                            </p> */}
                     </div>
                 </div>
             ))}

@@ -24,7 +24,7 @@ import {
     DrawerTrigger,
 } from "@/components/ui/drawer";
 import { useMediaQuery } from "@react-hook/media-query";
-import { SortByRecordedDate } from "./sort-by-date";
+import { SortByDate } from "./sort-by-date";
 import { FilterByDateRange } from "./filter-date-range";
 import { useAtom } from "jotai";
 import { filterAtom } from "./state";
@@ -108,7 +108,7 @@ export function Filter() {
                             <FilterByDateRange isDesktop={isDesktop} />
                             <div className="flex justify-evenly">
                                 <FilterType />
-                                <SortByRecordedDate />
+                                <SortByDate />
                             </div>
                         </div>
                         <DialogFooter>
@@ -139,7 +139,7 @@ export function Filter() {
                             <FilterByDateRange isDesktop={isDesktop} />
                             <div className="flex gap-5 justify-center">
                                 <FilterType />
-                                <SortByRecordedDate />
+                                <SortByDate />
                             </div>
                         </div>
                         <DrawerFooter>

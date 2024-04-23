@@ -6,7 +6,7 @@ import { useAtom } from "jotai";
 import { useState } from "react";
 import { filterAtom } from "./state";
 
-export function SortByRecordedDate() {
+export function SortByDate() {
     const [filter, setFilter] = useAtom(filterAtom);
     const SortValueTranslator = () =>
         filter.sortByDate === "older" ? true : false;
