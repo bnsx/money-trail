@@ -30,12 +30,17 @@ export async function POST(req: NextRequest) {
         let { data } = body;
 
         if (data.categoryID !== null) {
-            const hasCategory = await category.hasCategory({
-                categoryID: data.categoryID,
-                memberID,
-            });
-            if (!hasCategory) {
+            if (data.categoryID === "null") {
+                // yes i mean null in string
                 data.categoryID = null;
+            } else {
+                const hasCategory = await category.hasCategory({
+                    categoryID: data.categoryID,
+                    memberID,
+                });
+                if (!hasCategory) {
+                    data.categoryID = null;
+                }
             }
         }
         const merge = {
