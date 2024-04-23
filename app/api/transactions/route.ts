@@ -1,3 +1,4 @@
+import { toDateTime } from "@/lib/date";
 import { prisma } from "@/lib/db";
 import { member } from "@/lib/member";
 import { getToken } from "next-auth/jwt";
@@ -20,7 +21,14 @@ export async function GET(req: NextRequest) {
                 { status: 401 }
             );
         }
-
+        const fromDateUnix = Number(
+            req.nextUrl.searchParams.get("fromDate") || undefined
+        );
+        const toDateUnix = Number(
+            req.nextUrl.searchParams.get("toDate") || undefined
+        );
+        const fromDate = fromDateUnix ? toDateTime(fromDateUnix) : undefined;
+        const toDate = toDateUnix ? toDateTime(toDateUnix) : undefined;
         let pageIndex = parseInt(
             req.nextUrl.searchParams.get("pageIndex") || "1",
             10
@@ -43,46 +51,26 @@ export async function GET(req: NextRequest) {
             type = "all";
         }
 
+        const whereCondition: {
+            type?: "income" | "expense";
+            date?: { gte: Date; lte: Date };
+            memberID: string;
+            deletedAt: Date | null;
+        } = {
+            memberID,
+            deletedAt: null,
+        };
         if (type !== "all") {
-            const data = await prisma.transactions.findMany({
-                where: { memberID, type, deletedAt: null },
-                select: {
-                    txid: true,
-                    title: true,
-                    amount: true,
-                    description: true,
-                    type: true,
-                    date: true,
-                    createdAt: true,
-                    updatedAt: true,
-                    countries: { select: { currencyCode: true } },
-                    categories: { select: { categoryID: true, name: true } },
-                },
-            });
-
-            const pageCount = Math.ceil(data.length / pageSize);
-            const start = (pageIndex - 1) * pageSize;
-            const end = start + Number(pageSize);
-            const entries = data.slice(start, end).map((x) => ({
-                ...x,
-                amount: Number(x.amount),
-                currencyCode: x.countries.currencyCode,
-                category:
-                    {
-                        id: x.categories?.categoryID,
-                        name: x.categories?.name,
-                    } || null,
-                categories: undefined,
-                countries: undefined,
-            }));
-
-            return NextResponse.json(
-                { data: entries, pageIndex, pageSize, pageCount },
-                { status: 200 }
-            );
+            whereCondition.type = type;
+        }
+        if (fromDate && toDate) {
+            whereCondition.date = {
+                gte: new Date(fromDate),
+                lte: new Date(toDate),
+            };
         }
         const data = await prisma.transactions.findMany({
-            where: { memberID, deletedAt: null },
+            where: whereCondition,
             select: {
                 txid: true,
                 title: true,
@@ -118,6 +106,7 @@ export async function GET(req: NextRequest) {
             { status: 200 }
         );
     } catch (error) {
+        console.log(error);
         return NextResponse.json(
             { message: "Internal Server Error", code: "INTERNAL_SERVER_ERROR" },
             { status: 500 }
