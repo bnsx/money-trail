@@ -92,10 +92,13 @@ export function AddTransactionButton() {
         }
     };
     const mapCategoriesData = categories
-        ? categories.map((x) => ({
-              label: x.name,
-              value: x.categoryID,
-          }))
+        ? [
+              ...categories.map((x) => ({
+                  label: x.name,
+                  value: x.categoryID,
+              })),
+              { label: "Uncategory", value: "null" },
+          ]
         : [];
     useEffect(() => {
         if (open === false) {

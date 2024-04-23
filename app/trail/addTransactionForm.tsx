@@ -86,10 +86,13 @@ export function AddTransactionForm() {
         }
     };
     const mapCategoriesData = categories
-        ? categories.map((x) => ({
-              label: x.name,
-              value: x.categoryID,
-          }))
+        ? [
+              ...categories.map((x) => ({
+                  label: x.name,
+                  value: x.categoryID,
+              })),
+              { label: "Uncategory", value: "null" },
+          ]
         : [];
     return (
         <div className="hidden xl:block">
