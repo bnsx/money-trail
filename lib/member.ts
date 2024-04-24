@@ -84,6 +84,7 @@ class Member {
         return await prisma.members.update({
             where: { memberID, status: true, deletedAt: null },
             data: { status: false, deletedAt: new Date() },
+            select: { status: true },
         });
     }
 }
