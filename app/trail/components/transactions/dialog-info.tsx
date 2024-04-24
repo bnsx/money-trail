@@ -21,16 +21,13 @@ import { formatDate } from "@/lib/date";
 import { sarabunFont } from "@/lib/font";
 import { NumberThousand } from "@/lib/number";
 import { $Enums } from "@prisma/client";
-import {
-    ArchiveIcon,
-    ClockIcon,
-    TrashIcon,
-} from "@radix-ui/react-icons";
+import { ArchiveIcon, ClockIcon, TrashIcon } from "@radix-ui/react-icons";
 import { useMediaQuery } from "@react-hook/media-query";
 import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { CategoryBadge } from "./category-badge";
 import { DialogEdit } from "./dialog-edit";
+import { th } from "date-fns/locale";
 
 interface Props {
     open: boolean;
@@ -89,15 +86,27 @@ export function DialogInfo({ open, data, setOpen }: Props) {
                                 <div className="text-muted-foreground flex items-center gap-2">
                                     <div className="flex items-center gap-1">
                                         <ClockIcon className="w-5 h-5" />
-                                        <span className="text-xs">
+                                        <span
+                                            className="text-xs"
+                                            title={new Date(
+                                                data.date
+                                            ).toLocaleString(th.code)}
+                                        >
                                             {formatDate(data.date)}
                                         </span>
                                     </div>
 
                                     <div className="flex items-center gap-1">
                                         <ArchiveIcon className="w-5 h-5" />
-                                        <span className="text-xs">
-                                            {formatDate(data.createdAt)}
+                                        <span
+                                            className="text-xs"
+                                            title={new Date(
+                                                data.createdAt
+                                            ).toLocaleString(th.code)}
+                                        >
+                                           {new Date(
+                                                data.createdAt
+                                            ).toLocaleString(th.code)}
                                         </span>
                                     </div>
                                 </div>
@@ -142,18 +151,20 @@ export function DialogInfo({ open, data, setOpen }: Props) {
                                 />
                                 <CategoryBadge data={data.category?.name} />
 
-                                <div className="flex items-center justify-evenly">
+                                <div className="">
                                     <div className="flex gap-1">
                                         <ClockIcon className="w-4 h-4" />
-                                        <p className="text-xs">
+                                        <span className="text-xs">
                                             {formatDate(data.date)}
-                                        </p>
+                                        </span>
                                     </div>{" "}
                                     <div className="flex gap-1">
                                         <ArchiveIcon className="w-4 h-4" />
-                                        <p className="text-xs">
-                                            {formatDate(data.createdAt)}
-                                        </p>
+                                        <span className="text-xs">
+                                            {new Date(
+                                                data.createdAt
+                                            ).toLocaleString(th.code)}
+                                        </span>
                                     </div>
                                 </div>
                             </DrawerDescription>

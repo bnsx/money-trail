@@ -9,15 +9,15 @@ import { filterAtom } from "./state";
 export function SortByDate() {
     const [filter, setFilter] = useAtom(filterAtom);
     const SortValueTranslator = () =>
-        filter.sortByDate === "older" ? true : false;
+        filter.sortByDate === "asc" ? true : false;
     const [checked, setChecked] = useState(() => SortValueTranslator());
 
     const onCheckedChange = (value: boolean) => {
         setChecked(!checked);
         if (value === false) {
-            setFilter({ ...filter, sortByDate: "newer" });
+            setFilter({ ...filter, sortByDate: "desc" });
         } else {
-            setFilter({ ...filter, sortByDate: "older" });
+            setFilter({ ...filter, sortByDate: "asc" });
         }
     };
 

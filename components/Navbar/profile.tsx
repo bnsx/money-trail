@@ -54,7 +54,6 @@ export function ProfilePortal({ session }: Props) {
                 <DropdownMenuItem asChild>
                     <Link href={"/profile"}>Profile</Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem>Logs</DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
                     <LogOut />
