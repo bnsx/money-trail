@@ -11,7 +11,6 @@ interface hasMemberProps {
     memberID?: string;
     username?: string;
     email?: string;
-    status?: boolean;
     select?: {
         username?: boolean;
         email?: boolean;
@@ -49,7 +48,6 @@ class Member {
         memberID,
         username,
         email,
-        status = true,
         select = {
             username: true,
             email: true,
@@ -65,7 +63,7 @@ class Member {
         },
     }: hasMemberProps) {
         return await prisma.members.findUnique({
-            where: { memberID, username, email, status },
+            where: { memberID, username, email },
             select,
             // select: {
             //     memberID: true,
