@@ -30,6 +30,9 @@ interface hasMemberProps {
         isoNumeric?: boolean;
     };
 }
+interface deactivateMemberProps {
+    memberID: string;
+}
 
 class Member {
     async createMember({ username, email, role, provider }: createMemberProps) {
@@ -77,6 +80,12 @@ class Member {
             //     isoNumeric: true,
             //     countries: { select: { currencyCode: true } },
             // },
+        });
+    }
+    async deactivateMember({ memberID }: deactivateMemberProps) {
+        return await prisma.members.update({
+            where: { memberID, status: true, deletedAt: null },
+            data: { status: false, deletedAt: new Date() },
         });
     }
 }
