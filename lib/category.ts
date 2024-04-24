@@ -1,3 +1,4 @@
+import { Prisma } from "@prisma/client";
 import { prisma } from "./db";
 
 interface getMyCategoriesProps {
@@ -19,9 +20,10 @@ interface patchCategoryProps {
     name: string;
     description: string | null;
 }
-interface hasCategoryProps {
+interface hasCategoryProps<T extends Prisma.categoriesSelect> {
     categoryID: string;
     memberID: string;
+    select: T;
 }
 class Category {
     async getMyCategories({ memberID, deletedAt }: getMyCategoriesProps) {
@@ -54,9 +56,14 @@ class Category {
             data: { name, description, updatedAt: new Date() },
         });
     }
-    async hasCategory({ categoryID, memberID }: hasCategoryProps) {
+    async hasCategory<T extends Prisma.categoriesSelect>({
+        categoryID,
+        memberID,
+        select,
+    }: hasCategoryProps<T>) {
         return await prisma.categories.findUnique({
             where: { categoryID, memberID, deletedAt: null },
+            select,
         });
     }
 }

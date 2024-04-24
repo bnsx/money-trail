@@ -21,6 +21,7 @@ export const authOptions: NextAuthOptions = {
                 if (account && profile && profile.email !== undefined) {
                     const retriveData = await member.hasMember({
                         username: account.providerAccountId,
+                        select: { email: true, status: true },
                     });
                     if (!retriveData) {
                         const username = account.providerAccountId;
@@ -46,7 +47,13 @@ export const authOptions: NextAuthOptions = {
         },
         jwt: async ({ token, account, user }) => {
             if (account) {
-                const data = await member.hasMember({ username: user.id });
+                const data = await member.hasMember({
+                    username: user.id,
+                    select: {
+                        memberID: true,
+                        countries: { select: { currencyCode: true } },
+                    },
+                });
                 if (!data) {
                     return token;
                 }

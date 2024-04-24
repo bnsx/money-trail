@@ -1,3 +1,4 @@
+import { Prisma } from "@prisma/client";
 import { prisma } from "./db";
 
 interface createTransactionProps {
@@ -25,10 +26,11 @@ interface patchTransactionProps {
     categoryID: string | null;
 }
 
-interface hasTransactionProps {
+interface hasTransactionProps<T extends Prisma.transactionsSelect> {
     txid: string;
     memberID: string;
     deletedAt?: null;
+    select: T;
 }
 
 interface getAllProps {
@@ -72,9 +74,15 @@ class Transaction {
         });
     }
 
-    async hasTransaction({ txid, memberID, deletedAt }: hasTransactionProps) {
+    async hasTransaction<T extends Prisma.transactionsSelect>({
+        txid,
+        memberID,
+        deletedAt,
+        select,
+    }: hasTransactionProps<T>) {
         return await prisma.transactions.findUnique({
             where: { txid, memberID, deletedAt },
+            select,
         });
     }
 

@@ -6,7 +6,10 @@ export async function DELETE(req: NextRequest) {
     try {
         const token = await getToken({ req });
         const memberID = token?.id as string;
-        const hasMember = await member.hasMember({ memberID });
+        const hasMember = await member.hasMember({
+            memberID,
+            select: { status: true },
+        });
         if (!hasMember || hasMember.status === false) {
             return NextResponse.json(
                 {
