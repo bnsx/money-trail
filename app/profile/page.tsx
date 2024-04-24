@@ -13,6 +13,7 @@ import { type Metadata } from "next";
 import { member } from "@/lib/member";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { DeactivateComponent } from "./deactivate";
 
 export const metadata: Metadata = { title: "Profile" };
 export default async function Page() {
@@ -55,6 +56,7 @@ export default async function Page() {
                             </Button>
                         )}
                     </div>
+                    <DeactivateComponent />
                 </CardContent>
             </Card>
         </div>
