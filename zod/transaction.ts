@@ -23,7 +23,19 @@ const create = z
         ...x,
         description: x.description || null,
         categoryID: x.categoryID || null,
+        date: MapTimeToDate(x.date),
     }));
 const delete_ = z.object({ txid: z.string().min(1).max(100) });
 const patch = z.object({ txid: z.string().min(1).max(100), data: create });
 export const transactionSchema = { create, delete_, patch };
+
+function MapTimeToDate(data: Date): Date {
+    const current = new Date(data);
+    const time = new Date()
+        .toLocaleTimeString()
+        .split(/\s+(?:PM|AM)/)[0]
+        .trim();
+    const [hours, minutes, seconds] = time.split(":").map(Number);
+    current.setHours(hours, minutes, seconds);
+    return current;
+}
