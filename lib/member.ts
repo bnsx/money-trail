@@ -19,6 +19,7 @@ interface hasMemberProps {
         provider?: boolean;
         countries?: {
             select?: {
+                name?: boolean;
                 currencyCode?: boolean;
             };
         };
@@ -54,7 +55,7 @@ class Member {
             role: true,
             status: true,
             provider: true,
-            countries: { select: { currencyCode: true } },
+            countries: { select: { name: true, currencyCode: true } },
             memberID: true,
             createdAt: true,
             updatedAt: true,
