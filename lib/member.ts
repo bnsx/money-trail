@@ -84,7 +84,11 @@ class Member {
     async deactivate({ memberID }: deactivateProps) {
         return await prisma.members.update({
             where: { memberID, status: true, deletedAt: null },
-            data: { status: false, deletedAt: new Date() },
+            data: {
+                status: false,
+                updatedAt: new Date(),
+                deletedAt: new Date(),
+            },
             select: { status: true },
         });
     }
