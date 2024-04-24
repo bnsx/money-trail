@@ -22,10 +22,6 @@ export default async function Page() {
         memberID: session?.user.id,
         select: { isoNumeric: true, countries: { select: { name: true } } },
     });
-    const country = await prisma.members.findUnique({
-        where: { memberID: session?.user.id },
-        select: { countries: { select: { name: true } } },
-    });
     return (
         <div className="xl:flex md:flex justify-center md:translate-y-32 xl:translate-y-32 translate-y-10">
             <Card className="w-full max-w-96">
@@ -48,13 +44,13 @@ export default async function Page() {
                         <Label>Your Country</Label>
                         <Input
                             value={
-                                country?.countries?.name !== undefined
-                                    ? country.countries.name
+                                hasMember?.countries?.name
+                                    ? hasMember?.countries?.name
                                     : "Please click below for setup!"
                             }
                             disabled
                         />
-                        {!country?.countries && (
+                        {!hasMember?.isoNumeric && (
                             <Button asChild type="button" className="w-full">
                                 <Link href={"/setup"}>Setup My Country</Link>
                             </Button>
