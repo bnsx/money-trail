@@ -11,17 +11,16 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { type Metadata } from "next";
 import { member } from "@/lib/member";
-import { prisma } from "@/lib/db";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { DeactivateComponent } from "./deactivate";
 
 export const metadata: Metadata = { title: "Profile" };
 export default async function Page() {
     const session = await getServerSession(authOptions);
-    const hasMember = await member.hasMember({ memberID: session?.user.id });
-    const country = await prisma.members.findUnique({
-        where: { memberID: session?.user.id },
-        select: { countries: { select: { name: true } } },
+    const hasMember = await member.hasMember({
+        memberID: session?.user.id,
+        select: { isoNumeric: true, countries: { select: { name: true } } },
     });
     return (
         <div className="xl:flex md:flex justify-center md:translate-y-32 xl:translate-y-32 translate-y-10">
@@ -45,18 +44,19 @@ export default async function Page() {
                         <Label>Your Country</Label>
                         <Input
                             value={
-                                country?.countries?.name !== undefined
-                                    ? country.countries.name
+                                hasMember?.countries?.name
+                                    ? hasMember?.countries?.name
                                     : "Please click below for setup!"
                             }
                             disabled
                         />
-                        {!country?.countries && (
+                        {!hasMember?.isoNumeric && (
                             <Button asChild type="button" className="w-full">
                                 <Link href={"/setup"}>Setup My Country</Link>
                             </Button>
                         )}
                     </div>
+                    <DeactivateComponent />
                 </CardContent>
             </Card>
         </div>

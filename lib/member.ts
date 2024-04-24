@@ -11,7 +11,6 @@ interface hasMemberProps {
     memberID?: string;
     username?: string;
     email?: string;
-    status?: boolean;
     select?: {
         username?: boolean;
         email?: boolean;
@@ -20,6 +19,7 @@ interface hasMemberProps {
         provider?: boolean;
         countries?: {
             select?: {
+                name?: boolean;
                 currencyCode?: boolean;
             };
         };
@@ -29,6 +29,9 @@ interface hasMemberProps {
         deletedAt?: boolean;
         isoNumeric?: boolean;
     };
+}
+interface deactivateProps {
+    memberID: string;
 }
 
 class Member {
@@ -46,14 +49,13 @@ class Member {
         memberID,
         username,
         email,
-        status = true,
         select = {
             username: true,
             email: true,
             role: true,
             status: true,
             provider: true,
-            countries: { select: { currencyCode: true } },
+            countries: { select: { name: true, currencyCode: true } },
             memberID: true,
             createdAt: true,
             updatedAt: true,
@@ -62,7 +64,7 @@ class Member {
         },
     }: hasMemberProps) {
         return await prisma.members.findUnique({
-            where: { memberID, username, email, status },
+            where: { memberID, username, email },
             select,
             // select: {
             //     memberID: true,
@@ -77,6 +79,13 @@ class Member {
             //     isoNumeric: true,
             //     countries: { select: { currencyCode: true } },
             // },
+        });
+    }
+    async deactivate({ memberID }: deactivateProps) {
+        return await prisma.members.update({
+            where: { memberID, status: true, deletedAt: null },
+            data: { status: false, deletedAt: new Date() },
+            select: { status: true },
         });
     }
 }

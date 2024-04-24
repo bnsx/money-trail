@@ -9,7 +9,7 @@ export async function PATCH(req: NextRequest) {
         const token = await getToken({ req });
         const memberID = token?.id as string;
         const hasMember = await member.hasMember({ memberID });
-        if (!hasMember) {
+        if (!hasMember || hasMember.status === false) {
             return NextResponse.json(
                 {
                     message: "Unauthorized!",
