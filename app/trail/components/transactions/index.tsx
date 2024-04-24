@@ -15,6 +15,7 @@ interface FetcherProps {
     fromDate: string;
     toDate: string;
     type: string;
+    sortByDate: "asc" | "desc";
 }
 
 interface ResponseData {
@@ -29,11 +30,12 @@ async function fetcher({
     fromDate,
     toDate,
     type,
+    sortByDate,
 }: FetcherProps) {
     await new Promise((resolve) => setTimeout(resolve, 400));
 
     const r = await axios.get("/api/transactions", {
-        params: { pageIndex, pageSize, fromDate, toDate, type },
+        params: { pageIndex, pageSize, fromDate, toDate, type, sortByDate },
     });
     return r.data as ResponseData;
 }
@@ -48,9 +50,9 @@ export function TransactionsDisplay() {
         searchParams.get("pageSize") || "10",
         10
     ).toString();
-    const sortByDate = (searchParams.get("sortByDate") || "newer") as
-        | "newer"
-        | "older";
+    const sortByDate = (searchParams.get("sortByDate") || "desc") as
+        | "asc"
+        | "desc";
     const fromDate = searchParams.get("from") || "";
     const toDate = searchParams.get("to") || "";
     const type = (searchParams.get("type") || "all") as
@@ -59,9 +61,16 @@ export function TransactionsDisplay() {
         | "expense";
     const { data, isFetching, refetch } = useQuery({
         queryKey: ["transactions"],
-        queryFn: () => fetcher({ pageIndex, pageSize, fromDate, toDate, type }),
+        queryFn: () =>
+            fetcher({
+                pageIndex,
+                pageSize,
+                fromDate,
+                toDate,
+                type,
+                sortByDate,
+            }),
     });
-    const isData = SortByDateFn(sortByDate);
     const [currentValue, setCurrentValue] = useState<Transaction | null>(null);
     const [open, setOpen] = useState(false);
     const onOpenModal = (index: number) => {
@@ -73,20 +82,6 @@ export function TransactionsDisplay() {
             router.refresh();
         }
     };
-    function SortByDateFn(by: "newer" | "older") {
-        if (by === "older") {
-            return data?.data.sort(
-                (a, b) =>
-                    new Date(a.date).getTime() -
-                    new Date(b.date).getTime()
-            );
-        }
-        return data?.data.sort(
-            (a, b) =>
-                new Date(b.date).getTime() -
-                new Date(a.date).getTime()
-        );
-    }
     useEffect(() => {
         refetch();
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -114,10 +109,13 @@ export function TransactionsDisplay() {
                         data={currentValue}
                     />
                 )}
-                {isFetching || !isData ? (
+                {isFetching || !data ? (
                     <Loading />
                 ) : (
-                    <RenderTransaction onClicked={onOpenModal} data={isData} />
+                    <RenderTransaction
+                        onClicked={onOpenModal}
+                        data={data.data}
+                    />
                 )}
             </div>
             <div className="space-y-1">

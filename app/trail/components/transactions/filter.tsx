@@ -39,9 +39,9 @@ export function Filter() {
     const [filter, setFilter] = useAtom(filterAtom);
     const [open, setOpen] = useState(false);
     const onOpenChange = () => setOpen(!open);
-    const sortByDate = (searchParams.get("sortByDate") || "newer") as
-        | "newer"
-        | "older";
+    const sortByDate = (searchParams.get("sortByDate") || "desc") as
+        | "asc"
+        | "desc";
     const fromDate = Number(searchParams.get("from") || undefined) || undefined;
     const toDate = Number(searchParams.get("to") || undefined) || undefined;
     const txType = (searchParams.get("type") || "all") as

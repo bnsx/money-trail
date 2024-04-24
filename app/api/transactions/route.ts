@@ -36,6 +36,8 @@ export async function GET(req: NextRequest) {
         const toDateUnix = Number(
             req.nextUrl.searchParams.get("toDate") || undefined
         );
+        const sortByDate = (req.nextUrl.searchParams.get("sortByDate") ||
+            "desc") as "asc" | "desc";
         const fromDate = fromDateUnix ? toDateTime(fromDateUnix) : undefined;
         const toDate = toDateUnix ? toDateTime(toDateUnix) : undefined;
         let pageIndex = parseInt(
@@ -92,24 +94,30 @@ export async function GET(req: NextRequest) {
                 countries: { select: { currencyCode: true } },
                 categories: { select: { categoryID: true, name: true } },
             },
+            orderBy: { date: sortByDate },
         });
 
         const pageCount = Math.ceil(data.length / pageSize);
         const start = (pageIndex - 1) * pageSize;
         const end = start + Number(pageSize);
-        const entries = data.slice(start, end).map((x) => ({
-            ...x,
-            amount: Number(x.amount),
-            currencyCode: x.countries.currencyCode,
-            category:
-                {
-                    id: x.categories?.categoryID,
-                    name: x.categories?.name,
-                } || null,
-            categories: undefined,
-            countries: undefined,
-        }));
-
+        const entries = data
+            // .sort(
+            //     (a, b) =>
+            //         new Date(a.date).getTime() - new Date(b.date).getTime()
+            // )
+            .slice(start, end)
+            .map((x) => ({
+                ...x,
+                amount: Number(x.amount),
+                currencyCode: x.countries.currencyCode,
+                category:
+                    {
+                        id: x.categories?.categoryID,
+                        name: x.categories?.name,
+                    } || null,
+                categories: undefined,
+                countries: undefined,
+            }));
         return NextResponse.json(
             { data: entries, pageIndex, pageSize, pageCount },
             { status: 200 }
