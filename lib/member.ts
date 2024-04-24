@@ -29,7 +29,7 @@ interface hasMemberProps {
         isoNumeric?: boolean;
     };
 }
-interface deactivateMemberProps {
+interface deactivateProps {
     memberID: string;
 }
 
@@ -80,7 +80,7 @@ class Member {
             // },
         });
     }
-    async deactivateMember({ memberID }: deactivateMemberProps) {
+    async deactivate({ memberID }: deactivateProps) {
         return await prisma.members.update({
             where: { memberID, status: true, deletedAt: null },
             data: { status: false, deletedAt: new Date() },
