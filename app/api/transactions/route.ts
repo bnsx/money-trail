@@ -7,6 +7,8 @@ import { NextRequest, NextResponse } from "next/server";
 const pageSizeList = [10, 25, 50, 100];
 const typeList = ["all", "income", "expense"];
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(req: NextRequest) {
     try {
         const token = await getToken({ req });
