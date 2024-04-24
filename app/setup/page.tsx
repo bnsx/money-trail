@@ -10,8 +10,15 @@ import { redirect } from "next/navigation";
 export const metadata: Metadata = { title: "Setup" };
 export default async function Page() {
     const session = await getServerSession(authOptions);
-    const hasMember = await member.hasMember({ memberID: session?.user.id });
-    if (hasMember && hasMember.isoNumeric !== null) {
+    const hasMember = await member.hasMember({
+        memberID: session?.user.id,
+        select: { status: true, isoNumeric: true },
+    });
+    if (
+        hasMember &&
+        hasMember.status === true &&
+        hasMember.isoNumeric !== null
+    ) {
         return redirect("/trail");
     }
     const countries = await prisma.countries.findMany();

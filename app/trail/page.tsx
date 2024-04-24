@@ -13,12 +13,20 @@ import { AddTransactionButton } from "./addTransactionButton";
 export const metadata: Metadata = { title: "Trail" };
 export default async function Page() {
     const session = await getServerSession(authOptions);
-    const hasMember = await member.hasMember({ memberID: session?.user.id });
-    if (!session || hasMember?.isoNumeric === null) {
+    const memberID = session?.user.id as string;
+    const hasMember = await member.hasMember({
+        memberID: memberID,
+        select: { status: true, isoNumeric: true },
+    });
+    if (
+        !hasMember ||
+        hasMember.status === false ||
+        hasMember.isoNumeric === null
+    ) {
         return redirect("/setup");
     }
     const incomeAndExpense = await getIncomeAndExpense({
-        memberID: session.user.id,
+        memberID,
     });
     return (
         <section>

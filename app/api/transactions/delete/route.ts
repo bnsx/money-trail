@@ -8,8 +8,15 @@ export async function POST(req: NextRequest) {
     try {
         const token = await getToken({ req });
         const memberID = token?.id as string;
-        const hasMember = await member.hasMember({ memberID });
-        if (!hasMember || hasMember.isoNumeric === null) {
+        const hasMember = await member.hasMember({
+            memberID,
+            select: { status: true, isoNumeric: true },
+        });
+        if (
+            !hasMember ||
+            hasMember.status === false ||
+            hasMember.isoNumeric === null
+        ) {
             return NextResponse.json(
                 {
                     message: "Unauthorized!",
@@ -30,6 +37,7 @@ export async function POST(req: NextRequest) {
             txid: body.data.txid,
             memberID,
             deletedAt: null,
+            select: { txid: true },
         });
         if (!hasTransaction) {
             return NextResponse.json(

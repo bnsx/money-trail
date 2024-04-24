@@ -8,8 +8,15 @@ export async function PATCH(req: NextRequest) {
     try {
         const token = await getToken({ req });
         const memberID = token?.id as string;
-        const hasMember = await member.hasMember({ memberID });
-        if (!hasMember || hasMember.status === false) {
+        const hasMember = await member.hasMember({
+            memberID,
+            select: { status: true, isoNumeric: true },
+        });
+        if (
+            !hasMember ||
+            hasMember.status === false ||
+            hasMember.isoNumeric === null
+        ) {
             return NextResponse.json(
                 {
                     message: "Unauthorized!",
@@ -33,6 +40,7 @@ export async function PATCH(req: NextRequest) {
         const hasCategory = await category.hasCategory({
             categoryID,
             memberID,
+            select: { categoryID: true },
         });
         if (!hasCategory) {
             return NextResponse.json(

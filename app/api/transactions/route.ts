@@ -7,14 +7,21 @@ import { NextRequest, NextResponse } from "next/server";
 const pageSizeList = [10, 25, 50, 100];
 const typeList = ["all", "income", "expense"];
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest) {
     try {
         const token = await getToken({ req });
         const memberID = token?.id as string;
-        const hasMember = await member.hasMember({ memberID });
-        if (!hasMember || hasMember.status === false) {
+        const hasMember = await member.hasMember({
+            memberID,
+            select: { status: true, isoNumeric: true },
+        });
+        if (
+            !hasMember ||
+            hasMember.status === false ||
+            hasMember.isoNumeric === null
+        ) {
             return NextResponse.json(
                 {
                     message: "Unauhtorized!",

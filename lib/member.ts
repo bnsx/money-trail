@@ -1,4 +1,4 @@
-import { $Enums } from "@prisma/client";
+import { $Enums, Prisma } from "@prisma/client";
 import { prisma } from "./db";
 
 interface createMemberProps {
@@ -7,28 +7,11 @@ interface createMemberProps {
     role: $Enums.MemberRole;
     provider: string;
 }
-interface hasMemberProps {
+interface hasMemberProps<T extends Prisma.membersSelect> {
     memberID?: string;
     username?: string;
     email?: string;
-    select?: {
-        username?: boolean;
-        email?: boolean;
-        role?: boolean;
-        status?: boolean;
-        provider?: boolean;
-        countries?: {
-            select?: {
-                name?: boolean;
-                currencyCode?: boolean;
-            };
-        };
-        memberID?: boolean;
-        createdAt?: boolean;
-        updatedAt?: boolean;
-        deletedAt?: boolean;
-        isoNumeric?: boolean;
-    };
+    select: T;
 }
 interface deactivateProps {
     memberID: string;
@@ -43,42 +26,18 @@ class Member {
                 role,
                 provider,
             },
+            select: { memberID: true },
         });
     }
-    async hasMember({
+    async hasMember<T extends Prisma.membersSelect>({
         memberID,
         username,
         email,
-        select = {
-            username: true,
-            email: true,
-            role: true,
-            status: true,
-            provider: true,
-            countries: { select: { name: true, currencyCode: true } },
-            memberID: true,
-            createdAt: true,
-            updatedAt: true,
-            deletedAt: true,
-            isoNumeric: true,
-        },
-    }: hasMemberProps) {
+        select,
+    }: hasMemberProps<T>) {
         return await prisma.members.findUnique({
             where: { memberID, username, email },
             select,
-            // select: {
-            //     memberID: true,
-            //     username: true,
-            //     email: true,
-            //     status: true,
-            //     role: true,
-            //     provider: true,
-            //     createdAt: true,
-            //     updatedAt: true,
-            //     deletedAt: true,
-            //     isoNumeric: true,
-            //     countries: { select: { currencyCode: true } },
-            // },
         });
     }
     async deactivate({ memberID }: deactivateProps) {
