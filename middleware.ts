@@ -6,5 +6,6 @@ export const config = {
         "/profile/:path*",
         "/setup/:path*",
         "/api/setup/",
+        "/api/member/:path*"
     ],
 };
