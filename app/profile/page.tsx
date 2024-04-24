@@ -18,7 +18,10 @@ import Link from "next/link";
 export const metadata: Metadata = { title: "Profile" };
 export default async function Page() {
     const session = await getServerSession(authOptions);
-    const hasMember = await member.hasMember({ memberID: session?.user.id });
+    const hasMember = await member.hasMember({
+        memberID: session?.user.id,
+        select: { isoNumeric: true, countries: { select: { name: true } } },
+    });
     const country = await prisma.members.findUnique({
         where: { memberID: session?.user.id },
         select: { countries: { select: { name: true } } },
