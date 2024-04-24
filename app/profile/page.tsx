@@ -11,7 +11,6 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { type Metadata } from "next";
 import { member } from "@/lib/member";
-import { prisma } from "@/lib/db";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
