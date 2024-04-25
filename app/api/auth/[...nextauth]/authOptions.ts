@@ -19,7 +19,7 @@ export const authOptions: NextAuthOptions = {
         signIn: async ({ account, profile }) => {
             try {
                 if (account && profile && profile.email !== undefined) {
-                    const retriveData = await member.hasMember({
+                    const retriveData = await member.hasMemberForSigninOnly({
                         username: account.providerAccountId,
                         select: { email: true, status: true },
                     });
