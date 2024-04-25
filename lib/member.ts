@@ -7,7 +7,11 @@ interface createMemberProps {
     role: $Enums.MemberRole;
     provider: string;
 }
-interface hasMemberProps<T extends Prisma.membersSelect> {
+interface hasMemberForSigninOnlyProps<T> {
+    username?: string;
+    select: T;
+}
+interface hasMemberProps<T> {
     memberID?: string;
     username?: string;
     email?: string;
