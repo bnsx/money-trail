@@ -33,8 +33,6 @@ class Member {
     }
     async hasMember<T extends Prisma.membersSelect>({
         memberID,
-        username,
-        email,
         select,
     }: hasMemberProps<T>) {
         return await prisma.members.findUnique({
