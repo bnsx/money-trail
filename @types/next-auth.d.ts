@@ -8,7 +8,6 @@ declare module "next-auth" {
             email: string;
             image: string;
             forceSignOut?: boolean;
-            currencyCode?: string;
         };
     }
     interface Account {
@@ -36,6 +35,5 @@ declare module "next-auth/jwt" {
         name: string;
         email: string;
         image: string;
-        currencyCode?: string;
     }
 }

@@ -55,7 +55,6 @@ export const authOptions: NextAuthOptions = {
                     return token;
                 }
                 token.id = data.memberID;
-                token.currencyCode = data.countries?.currencyCode;
                 return token;
             }
             return token;
@@ -63,7 +62,6 @@ export const authOptions: NextAuthOptions = {
         session: async ({ session, token }) => {
             session.user.id = token.id;
             session.user.email = token.email;
-            session.user.currencyCode = token.currencyCode;
             return session;
         },
         redirect: async ({ url, baseUrl }) => {
