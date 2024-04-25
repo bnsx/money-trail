@@ -63,17 +63,17 @@ model members {
 }
 
 model countries {
-  name            String         @db.VarChar(200)
-  currencyCode    String         @db.Char(3)
-  currencyName    String         @db.VarChar(32)
-  currencySymbol  String         @db.VarChar(20)
-  isoChar2        String         @db.VarChar(2)
-  isoChar3        String         @db.VarChar(3)
-  isoNumeric      Int            @id @db.UnsignedSmallInt
-  nameTH          String         @db.VarChar(100)
-  count           Int            @default(0) @db.UnsignedInt
-  members         members[]
-  transactions    transactions[]
+  name           String         @db.VarChar(200)
+  currencyCode   String         @db.Char(3)
+  currencyName   String         @db.VarChar(32)
+  currencySymbol String         @db.VarChar(20)
+  isoChar2       String         @db.VarChar(2)
+  isoChar3       String         @db.VarChar(3)
+  isoNumeric     Int            @id @db.UnsignedSmallInt
+  nameTH         String         @db.VarChar(100)
+  count          Int            @default(0) @db.UnsignedInt
+  members        members[]
+  transactions   transactions[]
 }
 
 enum TransactionType {
