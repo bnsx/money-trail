@@ -21,7 +21,7 @@ export const authOptions: NextAuthOptions = {
                 if (account && profile && profile.email !== undefined) {
                     const retriveData = await member.hasMemberForSigninOnly({
                         username: account.providerAccountId,
-                        select: { email: true, status: true },
+                        select: { memberID: true },
                     });
                     if (!retriveData) {
                         const username = account.providerAccountId;
