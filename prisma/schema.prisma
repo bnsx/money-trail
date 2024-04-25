@@ -46,8 +46,8 @@ model transactions {
 
 model members {
   memberID     String         @id @default(cuid()) @db.VarChar(100)
-  username     String         @unique @db.VarChar(25)
-  email        String         @unique @db.VarChar(255)
+  username     String?        @db.VarChar(25)
+  email        String?        @db.VarChar(255)
   role         MemberRole
   status       Boolean        @default(true)
   provider     String         @db.VarChar(10)
