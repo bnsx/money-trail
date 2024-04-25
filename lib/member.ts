@@ -13,8 +13,6 @@ interface hasMemberForSigninOnlyProps<T> {
 }
 interface hasMemberProps<T> {
     memberID?: string;
-    username?: string;
-    email?: string;
     select: T;
 }
 interface deactivateProps {
