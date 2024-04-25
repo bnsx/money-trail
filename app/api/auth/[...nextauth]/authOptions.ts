@@ -19,9 +19,9 @@ export const authOptions: NextAuthOptions = {
         signIn: async ({ account, profile }) => {
             try {
                 if (account && profile && profile.email !== undefined) {
-                    const retriveData = await member.hasMember({
+                    const retriveData = await member.hasMemberForSigninOnly({
                         username: account.providerAccountId,
-                        select: { email: true, status: true },
+                        select: { memberID: true },
                     });
                     if (!retriveData) {
                         const username = account.providerAccountId;
@@ -34,9 +34,6 @@ export const authOptions: NextAuthOptions = {
                         });
                         return true;
                     }
-                    if (retriveData.status === false) {
-                        return false;
-                    }
                     return true;
                 }
                 return false;
@@ -47,18 +44,14 @@ export const authOptions: NextAuthOptions = {
         },
         jwt: async ({ token, account, user }) => {
             if (account) {
-                const data = await member.hasMember({
+                const data = await member.hasMemberForSigninOnly({
                     username: user.id,
-                    select: {
-                        memberID: true,
-                        countries: { select: { currencyCode: true } },
-                    },
+                    select: { memberID: true },
                 });
                 if (!data) {
                     return token;
                 }
                 token.id = data.memberID;
-                token.currencyCode = data.countries?.currencyCode;
                 return token;
             }
             return token;
@@ -66,7 +59,6 @@ export const authOptions: NextAuthOptions = {
         session: async ({ session, token }) => {
             session.user.id = token.id;
             session.user.email = token.email;
-            session.user.currencyCode = token.currencyCode;
             return session;
         },
         redirect: async ({ url, baseUrl }) => {
@@ -81,9 +73,9 @@ export const authOptions: NextAuthOptions = {
         async session({ token, session }) {
             const hasMember = await member.hasMember({
                 memberID: session.user.id,
-                email: session.user.email,
                 select: { memberID: true, status: true },
             });
+            // I think we should use Redis to improve performance and reduce costs.
             if (!hasMember || hasMember.status === false) {
                 session.user.forceSignOut = true;
             }
