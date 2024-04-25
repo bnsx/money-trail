@@ -34,9 +34,6 @@ export const authOptions: NextAuthOptions = {
                         });
                         return true;
                     }
-                    if (retriveData.status === false) {
-                        return false;
-                    }
                     return true;
                 }
                 return false;
