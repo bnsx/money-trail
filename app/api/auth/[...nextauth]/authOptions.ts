@@ -75,6 +75,7 @@ export const authOptions: NextAuthOptions = {
                 memberID: session.user.id,
                 select: { memberID: true, status: true },
             });
+            // I think we should use Redis to improve performance and reduce costs.
             if (!hasMember || hasMember.status === false) {
                 session.user.forceSignOut = true;
             }
