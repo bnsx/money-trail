@@ -76,7 +76,6 @@ export const authOptions: NextAuthOptions = {
         async session({ token, session }) {
             const hasMember = await member.hasMember({
                 memberID: session.user.id,
-                email: session.user.email,
                 select: { memberID: true, status: true },
             });
             if (!hasMember || hasMember.status === false) {
