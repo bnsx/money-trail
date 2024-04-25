@@ -44,12 +44,9 @@ export const authOptions: NextAuthOptions = {
         },
         jwt: async ({ token, account, user }) => {
             if (account) {
-                const data = await member.hasMember({
+                const data = await member.hasMemberForSigninOnly({
                     username: user.id,
-                    select: {
-                        memberID: true,
-                        countries: { select: { currencyCode: true } },
-                    },
+                    select: { memberID: true },
                 });
                 if (!data) {
                     return token;

@@ -20,6 +20,15 @@ interface deactivateProps {
 }
 
 class Member {
+    async hasMemberForSigninOnly<T extends Prisma.membersSelect>({
+        username,
+        select,
+    }: hasMemberForSigninOnlyProps<T>) {
+        return await prisma.members.findFirst({
+            where: { username, status: true, deletedAt: null },
+            select,
+        });
+    }
     async createMember({ username, email, role, provider }: createMemberProps) {
         return await prisma.members.create({
             data: {
@@ -33,12 +42,10 @@ class Member {
     }
     async hasMember<T extends Prisma.membersSelect>({
         memberID,
-        username,
-        email,
         select,
-            where: { memberID },
+    }: hasMemberProps<T>) {
         return await prisma.members.findUnique({
-            where: { memberID, username, email },
+            where: { memberID },
             select,
         });
     }
