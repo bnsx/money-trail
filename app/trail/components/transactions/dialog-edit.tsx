@@ -308,7 +308,7 @@ export function DialogEdit({ isDesktop, data, setDialogInfo }: Props) {
                                                 type="button"
                                                 variant="outline"
                                             >
-                                                Cancel
+                                                Discard
                                             </Button>
                                         </DrawerClose>
                                     </DrawerFooter>
