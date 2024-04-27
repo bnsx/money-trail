@@ -89,23 +89,11 @@ export function DialogInfo({ open, data, setOpen }: Props) {
                                         <span
                                             className="text-xs"
                                             title={new Date(
-                                                data.date
+                                                data.updatedAt
                                             ).toLocaleString(th.code)}
                                         >
-                                            {formatDate(data.date)}
-                                        </span>
-                                    </div>
-
-                                    <div className="flex items-center gap-1">
-                                        <ArchiveIcon className="w-5 h-5" />
-                                        <span
-                                            className="text-xs"
-                                            title={new Date(
-                                                data.createdAt
-                                            ).toLocaleString(th.code)}
-                                        >
-                                           {new Date(
-                                                data.createdAt
+                                            {new Date(
+                                                data.updatedAt
                                             ).toLocaleString(th.code)}
                                         </span>
                                     </div>
@@ -152,17 +140,11 @@ export function DialogInfo({ open, data, setOpen }: Props) {
                                 <CategoryBadge data={data.category?.name} />
 
                                 <div className="">
-                                    <div className="flex gap-1">
+                                    <div className="flex justify-center gap-1">
                                         <ClockIcon className="w-4 h-4" />
                                         <span className="text-xs">
-                                            {formatDate(data.date)}
-                                        </span>
-                                    </div>{" "}
-                                    <div className="flex gap-1">
-                                        <ArchiveIcon className="w-4 h-4" />
-                                        <span className="text-xs">
                                             {new Date(
-                                                data.createdAt
+                                                data.updatedAt
                                             ).toLocaleString(th.code)}
                                         </span>
                                     </div>
