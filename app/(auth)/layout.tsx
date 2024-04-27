@@ -8,7 +8,7 @@ export const metadata = { title: "LogIn" };
 export default async function Layout({ children }: Props) {
     const session = await getServerSession();
     if (session) {
-        redirect("/");
+        redirect("/trail");
     }
     return <div>{children}</div>;
 }

@@ -9,7 +9,7 @@ export async function Navbar() {
     return (
         <nav className="sticky top-0 z-[1]">
             <div className="flex items-center justify-between xl:px-32 px-4 py-4 backdrop-blur bg-transparent">
-                <Link href={"/"} className="flex gap-2">
+                <Link href={"/trail"} className="flex gap-2">
                     <h1 className="text-lg xl:text-xl font-bold">Money</h1>
                     <h1 className="text-lg xl:text-xl font-bold  text-red-500">
                         Trail

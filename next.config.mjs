@@ -13,6 +13,15 @@ const nextConfig = {
             },
         ],
     },
+    async redirects() {
+        return [
+            {
+                source: "/",
+                destination: "/trail",
+                permanent: true,
+            },
+        ];
+    },
 };
 
 export default nextConfig;
