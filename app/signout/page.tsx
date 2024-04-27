@@ -17,7 +17,7 @@ export default function Page() {
     }, [loading]);
     useEffect(() => {
         setTimeout(() => {
-            signOut({ redirect: true, callbackUrl: "/" });
+            signOut({ redirect: true, callbackUrl: "/login" });
         }, 3000);
     }, []);
     return (

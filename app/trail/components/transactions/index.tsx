@@ -8,6 +8,13 @@ import { Loading } from "@/components/Loading";
 import RenderTransaction from "./render";
 import { Filter } from "./filter";
 import { DialogInfo } from "./dialog-info";
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from "@/components/ui/accordion";
+import Link from "next/link";
 
 interface FetcherProps {
     pageIndex: string;
@@ -125,6 +132,35 @@ export function TransactionsDisplay() {
                     pageSize={data?.pageSize as number}
                     pageCount={data?.pageCount as number}
                 />
+            </div>
+            <div id="question">
+                <h1>Questions</h1>
+                <Accordion type="single" collapsible>
+                    <AccordionItem value="item-1">
+                        <AccordionTrigger>
+                            Why can&apos;t I update the data once one day has
+                            elapsed?
+                        </AccordionTrigger>
+                        <AccordionContent>
+                            To ensure accurate data, it&apos;s essential to
+                            update it before the next day begins, as data
+                            updates may not be possible after one day has
+                            passed.
+                        </AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem value="item-2">
+                        <AccordionTrigger>
+                            How can I delete my account from the website?
+                        </AccordionTrigger>
+                        <AccordionContent>
+                            To delete your account from the website, visit your
+                            profile page by clicking{" "}
+                            <Link href={"/profile"}>here</Link>, then click on
+                            &apos;Deactivate.&apos; Afterward, the website will
+                            redirect you to logging out.
+                        </AccordionContent>
+                    </AccordionItem>
+                </Accordion>
             </div>
         </div>
     );

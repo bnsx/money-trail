@@ -22,7 +22,7 @@ interface Props {
 export function ProfilePortal({ session }: Props) {
     useEffect(() => {
         if (session.user.forceSignOut === true) {
-            signOut({ redirect: true, callbackUrl: "/" });
+            signOut({ redirect: true, callbackUrl: "/login" });
         }
     }, [session.user.forceSignOut]);
     return (

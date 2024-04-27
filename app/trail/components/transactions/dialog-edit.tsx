@@ -217,7 +217,7 @@ export function DialogEdit({ isDesktop, data, setDialogInfo }: Props) {
                                                 type="reset"
                                                 variant={"outline"}
                                             >
-                                                Drop
+                                                Discard
                                             </Button>
                                         </DialogClose>
                                     </DialogFooter>
@@ -308,7 +308,7 @@ export function DialogEdit({ isDesktop, data, setDialogInfo }: Props) {
                                                 type="button"
                                                 variant="outline"
                                             >
-                                                Cancel
+                                                Discard
                                             </Button>
                                         </DrawerClose>
                                     </DrawerFooter>

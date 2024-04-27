@@ -11,7 +11,7 @@ export function DeactivateComponent() {
         try {
             const r = await axios.delete("/api/member/deactivate");
             if (r.status === 200) {
-                signOut({ redirect: true, callbackUrl: "/" });
+                signOut({ redirect: true, callbackUrl: "/login" });
             }
         } catch (error) {
             alert(
