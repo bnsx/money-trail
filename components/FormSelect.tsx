@@ -14,6 +14,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "./ui/select";
+import { sarabunFont } from "@/lib/font";
 
 interface Props<T, K> {
     control: Control<T | any>;
@@ -54,7 +55,7 @@ export default function FormSelect<T, K extends keyof T>({
                                 <SelectValue placeholder={placeholder} />
                             </SelectTrigger>
                         </FormControl>
-                        <SelectContent>
+                        <SelectContent className={sarabunFont.className}>
                             {data?.length === 0 ? (
                                 <SelectItem value="blank" disabled>
                                     You don&apos;t have data
