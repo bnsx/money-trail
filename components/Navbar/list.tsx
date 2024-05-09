@@ -6,7 +6,7 @@ interface PathListProps {
 }
 export const pathList: PathListProps[] = [
     { label: "Trail", href: "/trail" },
-    { label: "Q & A", href: "/trail#question" },
+    // { label: "Q & A", href: "/trail#question" },
 ];
 
 export function PathList() {
