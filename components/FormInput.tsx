@@ -12,7 +12,7 @@ import { HTMLInputTypeAttribute } from "react";
 import { Control, Path } from "react-hook-form";
 import { Schema } from "zod";
 import { Textarea } from "./ui/textarea";
-import { defaultFont } from "@/lib/font";
+import { fontStyle } from "@/lib/font";
 
 interface Props<T, K> {
     label: string;
@@ -48,7 +48,7 @@ export default function FormInput<T, K extends keyof T>({
                             <Textarea
                                 placeholder={placeholder}
                                 {...field}
-                                className={`${defaultFont.className} max-h-32`}
+                                className={`${fontStyle.className} max-h-32`}
                             />
                         ) : (
                             <Input

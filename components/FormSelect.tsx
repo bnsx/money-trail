@@ -14,7 +14,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "./ui/select";
-import { defaultFont } from "@/lib/font";
+import { fontStyle } from "@/lib/font";
 
 interface Props<T, K> {
     control: Control<T | any>;

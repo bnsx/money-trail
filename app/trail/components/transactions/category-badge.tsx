@@ -1,6 +1,6 @@
 "use client";
 import { Badge } from "@/components/ui/badge";
-import { defaultFont } from "@/lib/font";
+import { fontStyle } from "@/lib/font";
 
 interface Props {
     data: string | null | undefined;
@@ -8,7 +8,7 @@ interface Props {
 export function CategoryBadge({ data }: Props) {
     return (
         <Badge
-            className={`${defaultFont.className} text-sm w-fit h-fit`}
+            className={`${fontStyle.className} text-sm w-fit h-fit`}
             variant={"secondary"}
         >
             {data || "Uncategory"}

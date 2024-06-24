@@ -4,7 +4,7 @@ import { Providers } from "./providers";
 import { Navbar } from "@/components/Navbar";
 
 import { Footer } from "@/components/Footer";
-import { defaultFont } from "@/lib/font";
+import { fontStyle } from "@/lib/font";
 
 export const metadata: Metadata = {
     title: {
@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body id="_BNSX_" className={defaultFont.className}>
+            <body id="_BNSX_" className={fontStyle.className}>
                 <Providers>
                     <Navbar />
                     <div className="px-5 xl:px-32 py-5 bg-slate-50 min-h-screen">
