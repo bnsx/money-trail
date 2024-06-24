@@ -59,9 +59,7 @@ export function DialogInfo({ open, data, setOpen }: Props) {
                 <Dialog open={open} onOpenChange={onOpenChange}>
                     <DialogContent className="w-full">
                         <DialogHeader>
-                            <DialogTitle
-                                className={`${defaultFont.className} space-x-3`}
-                            >
+                            <DialogTitle className="space-x-3">
                                 <span>{data.title}</span>
                                 <CategoryBadge data={data.category?.name} />
                             </DialogTitle>
@@ -146,9 +144,7 @@ export function DialogInfo({ open, data, setOpen }: Props) {
                             </DrawerDescription>
                         </DrawerHeader>
                         <div className="space-y-1">
-                            <p
-                                className={`${defaultFont.className} text-center`}
-                            >
+                            <p className={"text-center"}>
                                 {data.description || "No Description"}
                             </p>
                         </div>
