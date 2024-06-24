@@ -12,7 +12,7 @@ import { HTMLInputTypeAttribute } from "react";
 import { Control, Path } from "react-hook-form";
 import { Schema } from "zod";
 import { Textarea } from "./ui/textarea";
-import { sarabunFont } from "@/lib/font";
+import { defaultFont } from "@/lib/font";
 
 interface Props<T, K> {
     label: string;
@@ -48,11 +48,10 @@ export default function FormInput<T, K extends keyof T>({
                             <Textarea
                                 placeholder={placeholder}
                                 {...field}
-                                className={`${sarabunFont.className} max-h-32`}
+                                className={`${defaultFont.className} max-h-32`}
                             />
                         ) : (
                             <Input
-                                className={sarabunFont.className}
                                 placeholder={placeholder}
                                 {...field}
                                 type={type}

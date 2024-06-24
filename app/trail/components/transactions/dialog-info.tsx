@@ -17,11 +17,9 @@ import {
     DrawerHeader,
     DrawerTitle,
 } from "@/components/ui/drawer";
-import { formatDate } from "@/lib/date";
-import { sarabunFont } from "@/lib/font";
 import { NumberThousand } from "@/lib/number";
 import { $Enums } from "@prisma/client";
-import { ArchiveIcon, ClockIcon, TrashIcon } from "@radix-ui/react-icons";
+import { ClockIcon, TrashIcon } from "@radix-ui/react-icons";
 import { useMediaQuery } from "@react-hook/media-query";
 import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
@@ -62,7 +60,7 @@ export function DialogInfo({ open, data, setOpen }: Props) {
                     <DialogContent className="w-full">
                         <DialogHeader>
                             <DialogTitle
-                                className={`${sarabunFont.className} space-x-3`}
+                                className={`${defaultFont.className} space-x-3`}
                             >
                                 <span>{data.title}</span>
                                 <CategoryBadge data={data.category?.name} />
@@ -77,9 +75,7 @@ export function DialogInfo({ open, data, setOpen }: Props) {
                             </DialogDescription>
                         </DialogHeader>
                         <div className="space-y-1">
-                            <p className={sarabunFont.className}>
-                                {data.description || "No Description"}
-                            </p>
+                            <p>{data.description || "No Description"}</p>
                         </div>
                         <DialogFooter className="w-full">
                             <div className="flex items-center justify-between w-full">
@@ -128,9 +124,7 @@ export function DialogInfo({ open, data, setOpen }: Props) {
                 <Drawer open={open} onOpenChange={setOpen}>
                     <DrawerContent>
                         <DrawerHeader>
-                            <DrawerTitle className={sarabunFont.className}>
-                                {data.title}
-                            </DrawerTitle>
+                            <DrawerTitle>{data.title}</DrawerTitle>
                             <DrawerDescription className="space-y-1">
                                 <Amount
                                     type={data.type}
@@ -153,7 +147,7 @@ export function DialogInfo({ open, data, setOpen }: Props) {
                         </DrawerHeader>
                         <div className="space-y-1">
                             <p
-                                className={`${sarabunFont.className} text-center`}
+                                className={`${defaultFont.className} text-center`}
                             >
                                 {data.description || "No Description"}
                             </p>
